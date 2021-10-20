@@ -6,6 +6,8 @@ import { control } from '../store';
 import { Select, Button } from 'antd';
 import XLSX from 'xlsx';
 import { notifiStore } from '../../toastNotification/component';
+import { customHistory } from '../../router/router';
+import CurrencyFormat from 'react-currency-format';
 const { Option } = Select;
 
 @observer
@@ -62,7 +64,11 @@ export default class index extends React.Component {
         console.log(body.url);
 
     }
-
+    currencyFormat(num: string) {
+        return num.split('').reverse().reduce((prev: any, next, index) => {
+            return ((index % 3) ? next : (next + ',')) + prev
+        })
+    }
     render() {
         return (
             <Wrap>
@@ -76,12 +82,12 @@ export default class index extends React.Component {
                         <TableHead className={"header-table"}>
                             <TableRow>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>STT</TableCell>
+                                <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số điện thoại</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Tên đại lý</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Loại tài khoản (Lựa chọn)</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tài khoản</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tiền</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tiền avg thực nhận (File đính kèm) </TableCell>
-                                {/* <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Người tạo</TableCell> */}
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Action</TableCell>
                             </TableRow>
                         </TableHead>
@@ -94,10 +100,10 @@ export default class index extends React.Component {
                                                 {index + 1}
                                             </TableCell>
                                             <TableCell component="th" scope="row">
-                                                {/* {
-                                                    item.name ? item.name : 
-                                                } */}
-                                                <input onChange={(e) => item.name = e.target.value} placeholder={"Nhập tên đại lý"} />
+                                                <input value={item.phoneNumber} onChange={(e) => item.phoneNumber = e.target.value} placeholder={"Nhập số điện thoại"} />
+                                            </TableCell>
+                                            <TableCell component="th" scope="row">
+                                                <input value={item.name} onChange={(e) => item.name = e.target.value} placeholder={"Nhập tên đại lý"} />
                                             </TableCell>
                                             <TableCell component="th" scope="row">
                                                 <Select style={{ width: "200px" }} onChange={(e) => item.typeBank = e} value={item.typeBank}>
@@ -106,26 +112,16 @@ export default class index extends React.Component {
                                                 </Select>
                                             </TableCell>
                                             <TableCell component="th" scope="row">
-                                                {/* {
-                                                    item.bankNumber ? item.bankNumber : 
-                                                } */}
-                                                <input onChange={(e) => item.bankNumber = e.target.value} placeholder={"Nhập số tài khoản"} />
+                                                <input value={item.bankNumber} onChange={(e) => item.bankNumber = e.target.value} placeholder={"Nhập số tài khoản"} />
                                             </TableCell>
                                             <TableCell component="th" scope="row">
-                                                {/* {
-                                                    item.price ? item.price : 
-                                                } */}
-                                                <input onChange={(e) => item.price = e.target.value} placeholder={"Nhập số tiền"} />
+                                                <CurrencyFormat value={item.price} placeholder={"Nhập số tiền"} onChange={(e: any) => item.price = e.target.value} thousandSeparator={true} />
+                                                {/* <input value={item.price && this.currencyFormat(item.price)} onChange={(e) => item.price = e.target.value} placeholder={"Nhập số tiền"} /> */}
                                             </TableCell>
                                             <TableCell component="th" scope="row">
-                                                {/* {
-                                                    item.file ? item.file : 
-                                                } */}
-                                                <input onChange={(e) => item.file = e.target.value} placeholder={"Nhập số tiền"} />
+                                                <CurrencyFormat value={item.file} placeholder={"Nhập số tiền"} onChange={(e: any) => item.file = e.target.value} thousandSeparator={true} />
+                                                {/* <input value={item.file} onChange={(e) => item.file = e.target.value} placeholder={"Nhập số tiền"} /> */}
                                             </TableCell>
-                                            {/* <TableCell component="th" scope="row">
-                                                <input onChange={(e) => item.createUser = e.target.value} placeholder={"Nhập tên người tạo"} />
-                                            </TableCell> */}
                                             < TableCell component="th" scope="row" > <Button onClick={() => this.handleActionDetele(index)} style={{ backgroundColor: "#DC2626" }} type="primary">Xoá</Button></TableCell>
                                         </TableRow>
                                     )
@@ -143,13 +139,12 @@ export default class index extends React.Component {
                         <Button onClick={() => document.getElementById("selectedFile1")?.click()} type="primary">Tải lên tờ trình
                         </Button>
                 }
-
-
                 <div>
 
                     {/* <Button type="primary">Tải lên file</Button> */}
                     <Button onClick={() => this.handleActionAdd()} type="primary">Thêm</Button>
                     <Button type="primary" onClick={() => control.createTranstion()}>Tạo đơn</Button>
+                    <Button type="primary" onClick={() => customHistory.replace("/transactionorder")}>Huỷ</Button>
                 </div>
             </Wrap >
         )

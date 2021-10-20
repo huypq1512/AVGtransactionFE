@@ -19,6 +19,7 @@ export default class index extends Component<any> {
                             <TableRow>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>STT</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Tên đại lý</TableCell>
+                                <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số điện thoại</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Loại tài khoản (Lựa chọn)</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tài khoản</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tiền</TableCell>
@@ -28,16 +29,17 @@ export default class index extends Component<any> {
                         </TableHead>
                         <TableBody>
                             {
-                                control.store.listTransaction.map((item, index) => {
+                                control.store.listTransaction && control.store.listTransaction.map((item, index) => {
                                     return (
                                         <TableRow key={index}>
                                             <TableCell component="th" scope="row">{index + 1}</TableCell>
-                                            <TableCell component="th" scope="row">chưa có</TableCell>
+                                            <TableCell component="th" scope="row">{item.receiverFullName}</TableCell>
+                                            <TableCell component="th" scope="row">{item.phoneNumber}</TableCell>
                                             <TableCell component="th" scope="row">{item.transType}</TableCell>
                                             <TableCell component="th" scope="row">{item.transNumber}</TableCell>
                                             <TableCell component="th" scope="row">{item.transAmount}</TableCell>
                                             <TableCell component="th" scope="row">{item.avgReveived}</TableCell>
-                                            <TableCell component="th" scope="row">{item.receiverFullName}</TableCell>
+                                            <TableCell component="th" scope="row">{item.createUser}</TableCell>
                                         </TableRow>
 
 
@@ -47,6 +49,7 @@ export default class index extends Component<any> {
                         </TableBody>
                     </Table>
                 </TableContainer >
+                <div>File tờ trình <a href={"http://localhost:4321/" + control.store.linkFile}>Tải xuống để xem</a></div>
                 <Button type="primary">Xác nhận</Button>
             </Wrap >
         )

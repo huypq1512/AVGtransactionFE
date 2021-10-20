@@ -16,7 +16,7 @@ class LoginControl {
                 const { status, body } = await postRequest("login", false, { username: this.store.username, password: this.store.password });
                 if (status === 200) {
                     localStorage.setItem("token", body.token);
-                    customHistory.replace("/dashboard");
+                    customHistory.replace("/transactionorder");
 
                 }
                 else {
@@ -28,6 +28,7 @@ class LoginControl {
         }
     }
     logout() {
+        customHistory.replace("/login");
         localStorage.clear();
     }
 }

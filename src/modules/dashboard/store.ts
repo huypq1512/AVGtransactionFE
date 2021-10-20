@@ -1,6 +1,7 @@
 import axios from "axios";
 import { observable } from "mobx";
 import { getRequest, postRequest } from "../../api";
+import { customHistory } from "../router/router";
 import { notifiStore } from "../toastNotification/component";
 export interface IInput {
     name?: string,
@@ -8,7 +9,8 @@ export interface IInput {
     bankNumber?: string,
     price?: string,
     file?: string,
-    createUser?: string
+    createUser?: string,
+    phoneNumber?: string
 }
 interface IReqTransaction {
     transaction_detail: ITransactionnDetail[],
@@ -21,21 +23,26 @@ interface ITransactionnDetail {
     trans_type: string,
     trans_number: string,
     trans_amount: string,
-    avg_reveived: string
+    avg_reveived: string,
+    name_receiver: string,
+    phone_receiver: string
 }
 class Dashboard {
-    @observable input: IInput[] = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
+    @observable input: IInput[] = [{ name: undefined, phoneNumber: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
     @observable url?: string;
     reqTransaction: IReqTransaction = { transaction_detail: [], transaction_order: { url: "" } };
 
 }
 class Control {
     store = new Dashboard();
+    refresh() {
+        this.store = new Dashboard();
+    }
     async createTranstion() {
         this.store.reqTransaction = { transaction_detail: [], transaction_order: { url: "" } };
         let isNull = false;
         this.store.input.map((item, index) => {
-            if (!item.bankNumber || !item.bankNumber || !item.price || !item.file) {
+            if (!item.bankNumber || !item.bankNumber || !item.price || !item.file || !item.name || !item.phoneNumber) {
                 isNull = true;
             }
             else {
@@ -43,7 +50,9 @@ class Control {
                     avg_reveived: item.file,
                     trans_type: item.typeBank,
                     trans_amount: item.price,
-                    trans_number: item.bankNumber
+                    trans_number: item.bankNumber,
+                    name_receiver: item.name,
+                    phone_receiver: item.phoneNumber
                 };
                 this.store.reqTransaction.transaction_detail.push(data);
 
@@ -58,8 +67,11 @@ class Control {
             const { status, body } = await postRequest("transaction", true, this.store.reqTransaction);
             if (status === 200) {
                 notifiStore.content = body.message;
-                this.store.input = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
-                this.store.url = undefined;
+                notifiStore.type = "Success";
+                customHistory.replace("/transactionorder");
+                this.refresh();
+                // this.store.input = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
+                // this.store.url = undefined;
             }
         }
     }
