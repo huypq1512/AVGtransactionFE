@@ -93,10 +93,12 @@ class Control {
             if (status === 200) {
                 notifiStore.content = body.message;
                 notifiStore.type = "Success";
-                customHistory.replace("/transactionorder");
-                this.refresh();
-                // this.store.input = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
-                // this.store.url = undefined;
+                // customHistory.replace("/transactionorder");
+                this.store.isNameTransactionOrder = false;
+                this.store.showCreate = false;
+                // this.refresh();
+                this.store.input = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
+                this.store.url = undefined;
             }
         }
     }
