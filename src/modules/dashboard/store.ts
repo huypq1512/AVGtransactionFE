@@ -35,6 +35,7 @@ class Dashboard {
     reqTransaction: IReqTransaction = { transaction_detail: [], transaction_order: { url: "", name: "" } };
     @observable isNameTransactionOrder: boolean = false;
     @observable errorInput: boolean = false;
+    @observable showCreate: boolean = false;
 
 }
 class Control {
@@ -118,7 +119,10 @@ class Control {
                 })
             })
         })
+    }
+    async checkPhoneNumberZizi() {
 
     }
+
 }
 export const control = new Control();

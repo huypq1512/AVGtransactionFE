@@ -3,7 +3,7 @@ import React from "react";
 import styled from '@emotion/styled';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { control } from '../store';
-import { Select, Button, Input } from 'antd';
+import { Select, Button, Input, Modal } from 'antd';
 import XLSX from 'xlsx';
 import { notifiStore } from '../../toastNotification/component';
 import { customHistory } from '../../router/router';
@@ -72,7 +72,7 @@ export default class index extends React.Component {
     }
     render() {
         return (
-            <div style={{ minHeight: "100vh", paddingTop: "60px", }} className={"bg-gray-300"}>
+            <Modal zIndex={100} width={1600} title={"Tạo đơn hàng mới"} onCancel={() => control.store.showCreate = false} cancelText={"Huỷ"} onOk={() => control.showPopup()} okText={"Tạo đơn"} visible={control.store.showCreate}>
                 <Wrap>
                     <input type="file" id="selectedFile" style={{ display: "none" }} accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={this.importExcel} />
                     <Button style={{ backgroundColor: "#059669", borderTopLeftRadius: "8px", marginBottom: "24px" }} onClick={() => document.getElementById("selectedFile")?.click()} type="primary">Import file excel
@@ -143,15 +143,10 @@ export default class index extends React.Component {
                             <Button onClick={() => document.getElementById("selectedFile1")?.click()} type="primary">Tải lên tờ trình
                             </Button>
                     }
-
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: "60px", paddingBottom: "24px" }}>
-                        <Button style={{ backgroundColor: "#DC2626", marginRight: "24px", borderRadius: "4px" }} type="primary" onClick={() => customHistory.replace("/transactionorder")}>Huỷ</Button>
-                        <Button style={{ borderRadius: "4px" }} type="primary" onClick={() => control.showPopup()}>Tạo đơn</Button>
-                    </div>
-
                     <NameTransactionOrder />
                 </Wrap >
-            </div>
+            </Modal>
+
         )
     }
 }

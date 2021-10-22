@@ -84,9 +84,40 @@ function postRequest(url: string, isToken: boolean = true, data?: { [key: string
 function putRequest(url: string, isToken: boolean = true, data?: { [key: string]: any }) {
     return apiCall(url, "PUT", isToken, data);
 }
+async function getRequest1(url: string): Promise<IApiResponse<any>> {
+    loadingStore.loading = true;
+    const headers: { [key: string]: string } = {};
+    headers["Content-Type"] = "application/json";
+    return new Promise<any>((resolve, reject) => {
+        try {
+            Axios.get(
+                url,
+                { headers: headers }
+            )
+                .then(next => {
+                    resolve({
+                        body: humps.camelizeKeys(next.data),
+                        status: next.status
+                    });
+                    loadingStore.loading = false;
+                })
+                .catch(error => {
+                    resolve({
+                        status: 500,
+                        body: undefined
+                    });
+                })
+                .finally(() => "");
+        } catch (e) {
+            console.error(e);
+
+        }
+    });
+}
 export {
     getRequest,
     postRequest,
     putRequest,
+    getRequest1
 
 }

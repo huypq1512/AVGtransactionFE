@@ -9,7 +9,7 @@ export default class index extends React.Component {
                 notifiStore.content = undefined;
             }, 5000)
             return (
-                <div style={{ width: "384px", position: "fixed", top: "20px", left: 0, right: 0, marginLeft: "auto", marginRight: "auto" }} className="mb-5">
+                <div style={{ width: "384px", position: "fixed", top: "20px", left: 0, right: 0, marginLeft: "auto", marginRight: "auto", zIndex: 1000 }} className="mb-5">
                     {
                         notifiStore.type === "Success" &&
                         <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800 ">
@@ -79,8 +79,6 @@ export default class index extends React.Component {
                             </div>
                         </div>
                     }
-
-
                 </div>
             )
         }

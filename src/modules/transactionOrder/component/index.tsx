@@ -3,11 +3,13 @@ import styled from '@emotion/styled';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { control } from "../store";
 import { control as controlAuth } from "../../authen/store";
+import { control as controlCreate } from "../../dashboard/store";
 import moment from "moment";
 import { observer } from "mobx-react";
 import { Button } from "antd";
 import { customHistory } from "../../router/router";
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import CreateTransaction from "../../dashboard/component"
 @observer
 export default class index extends React.Component {
     componentDidMount() {
@@ -26,7 +28,7 @@ export default class index extends React.Component {
             <div className={"bg-gradient-to-r from-green-400 to-blue-500"}>
                 <Wrap >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "36px" }}>
-                        <Button onClick={() => customHistory.replace("/dashboard")}>Tạo đơn mới</Button>
+                        <Button onClick={() => controlCreate.store.showCreate = true}>Tạo đơn mới</Button>
                         <button className="bg-red-500 hover:bg-red-700 text-logout " onClick={() => controlAuth.logout()}>Logout</button>
                     </div>
 
@@ -94,8 +96,7 @@ export default class index extends React.Component {
                             <RightOutlined />
                         </Button>
                     </div>
-
-
+                    <CreateTransaction />
                 </Wrap>
             </div>
 
