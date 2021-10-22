@@ -8,6 +8,7 @@ export interface IApiResponse<T> {
 const baseURL: string = process.env.REACT_APP_API_BASE_URL || "";
 const TOKEN_NAME: string = "x-access-token";
 function getRequest(url: string, isToken: boolean = true): Promise<IApiResponse<any>> {
+    loadingStore.loading = true;
     const headers: { [key: string]: string } = {};
     headers['Content-Type'] = 'application/json';
     if (isToken) headers[TOKEN_NAME] = localStorage.getItem('token') || "";
@@ -17,6 +18,7 @@ function getRequest(url: string, isToken: boolean = true): Promise<IApiResponse<
             isToken ? { headers: headers } : undefined
         )
             .then(next => {
+                loadingStore.loading = false;
                 resolve({
                     body: humps.camelizeKeys(next.data),
                     status: next.status
@@ -39,6 +41,7 @@ function getRequest(url: string, isToken: boolean = true): Promise<IApiResponse<
 }
 
 function apiCall(url: string, method: Method, isToken: boolean = true, data?: { [key: string]: any }): Promise<IApiResponse<any>> {
+    loadingStore.loading = true;
     const headers: { [key: string]: string } = {};
     headers['Content-Type'] = 'application/json';
     if (isToken) headers[TOKEN_NAME] = localStorage.getItem('token') || "";
@@ -52,6 +55,7 @@ function apiCall(url: string, method: Method, isToken: boolean = true, data?: { 
             }
         )
             .then(next => {
+                loadingStore.loading = false;
                 resolve({
                     body: humps.camelizeKeys(next.data),
                     status: next.status

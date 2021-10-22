@@ -16,6 +16,7 @@ interface IReqTransaction {
     transaction_detail: ITransactionnDetail[],
     transaction_order: {
         url: string,
+        name: string,
     }
 
 }
@@ -30,7 +31,10 @@ interface ITransactionnDetail {
 class Dashboard {
     @observable input: IInput[] = [{ name: undefined, phoneNumber: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
     @observable url?: string;
-    reqTransaction: IReqTransaction = { transaction_detail: [], transaction_order: { url: "" } };
+    @observable name?: string;
+    reqTransaction: IReqTransaction = { transaction_detail: [], transaction_order: { url: "", name: "" } };
+    @observable isNameTransactionOrder: boolean = false;
+    @observable errorInput: boolean = false;
 
 }
 class Control {
@@ -38,8 +42,27 @@ class Control {
     refresh() {
         this.store = new Dashboard();
     }
+    showPopup() {
+        let isNull = false;
+        this.store.input.map((item, index) => {
+            if (!item.bankNumber || !item.bankNumber || !item.price || !item.file || !item.name || !item.phoneNumber) {
+                isNull = true;
+            }
+        });
+        if (isNull || !this.store.url) {
+            notifiStore.content = "Vui lòng nhập hết thông tin!";
+            notifiStore.type = "Warning";
+        }
+        else {
+            this.store.isNameTransactionOrder = true;
+        }
+    }
     async createTranstion() {
-        this.store.reqTransaction = { transaction_detail: [], transaction_order: { url: "" } };
+        if (!this.store.name) {
+            this.store.errorInput = true;
+            return false;
+        }
+        this.store.reqTransaction = { transaction_detail: [], transaction_order: { url: "", name: "" } };
         let isNull = false;
         this.store.input.map((item, index) => {
             if (!item.bankNumber || !item.bankNumber || !item.price || !item.file || !item.name || !item.phoneNumber) {
@@ -64,6 +87,7 @@ class Control {
         }
         else {
             this.store.reqTransaction.transaction_order.url = this.store.url;
+            this.store.reqTransaction.transaction_order.name = this.store.name;
             const { status, body } = await postRequest("transaction", true, this.store.reqTransaction);
             if (status === 200) {
                 notifiStore.content = body.message;
@@ -93,8 +117,6 @@ class Control {
                     body: next.data
                 })
             })
-
-
         })
 
     }
