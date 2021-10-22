@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import styled from "@emotion/styled";
 import { observer } from "mobx-react";
-import { control } from "../store";
+import { control } from "../../BillDepartment/store";
 import { Button } from "antd";
 @observer
 export default class index extends Component<any> {
@@ -51,7 +51,12 @@ export default class index extends Component<any> {
                 </TableContainer >
                 <div>File tờ trình <a href={"http://localhost:4321/" + control.store.linkFile}>Tải xuống để xem</a></div>
                 {
-                    control.store.state === "PENDING" && <Button type="primary" onClick={() => control.confirmFees(this.props.match.params.id)}>Xác nhận</Button>
+                    control.store.state === "CONFIRMOFFEES" &&
+                    <div>
+                        <input onChange={(e) => control.store.otp = e.target.value} placeholder={"Nhập otp"} />
+                        <Button type="primary" onClick={() => control.confirmAccountant(this.props.match.params.id)}>Xác nhận</Button>
+                    </div>
+
                 }
 
             </Wrap >

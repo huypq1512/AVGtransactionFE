@@ -6,6 +6,7 @@ import { Redirect, Router } from "react-router";
 import Login from "../authen/login";
 import Dashboard from "../dashboard/component";
 import BillDepartment from "../BillDepartment/component";
+import Accountant from "../accountant/component";
 import TransactionOrder from "../transactionOrder/component/index";
 import { createBrowserHistory } from "history";
 export const customHistory = createBrowserHistory();
@@ -24,6 +25,7 @@ export default function App() {
         <Route exact path="/login" component={Login} />
 
         <Route exact path="/billdepartment/:id" component={BillDepartment} />
+        <Route exact path="/accountant/:id" component={Accountant} />
         <Route
           exact
           path="/"

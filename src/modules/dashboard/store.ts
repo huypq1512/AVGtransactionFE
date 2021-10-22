@@ -84,7 +84,8 @@ class Control {
         return new Promise<any>(resolve => {
             axios.post('http://localhost:4321/upload_file', formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data',
+                    "x-access-token": localStorage.getItem("token")
                 }
             }).then((next) => {
                 resolve({

@@ -7,7 +7,7 @@ export default class index extends React.Component {
         if (notifiStore.content) {
             setTimeout(() => {
                 notifiStore.content = undefined;
-            }, 3000)
+            }, 5000)
             return (
                 <div style={{ width: "384px", position: "fixed", top: "20px", left: 0, right: 0, marginLeft: "auto", marginRight: "auto" }} className="mb-5">
                     {

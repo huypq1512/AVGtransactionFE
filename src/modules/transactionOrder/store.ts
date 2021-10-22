@@ -5,7 +5,7 @@ interface IResListTransactionOrder {
     createUser: string;
     attachedFile: string;
     createTime: string;
-    state: "PENDING" | "SUCCESS" | "REJECT";
+    state: "PENDING" | "CONFIRMOFFEES" | "CONFIRMOFACOUNTANT" | "REJECT";
 }
 class Store {
     @observable listTransactionOrder?: IResListTransactionOrder[];
