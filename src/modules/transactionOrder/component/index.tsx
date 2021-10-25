@@ -10,6 +10,7 @@ import { Button } from "antd";
 import { customHistory } from "../../router/router";
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import CreateTransaction from "../../dashboard/component"
+import { baseURL } from "../../../api";
 @observer
 export default class index extends React.Component {
     componentDidMount() {
@@ -60,7 +61,7 @@ export default class index extends React.Component {
                                                     {item.name}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <a href={"http://localhost:4321/" + item.attachedFile}>Tải xuống để xem</a>
+                                                    <a href={baseURL + item.attachedFile}>Tải xuống để xem</a>
                                                     {/* {item.attachedFile} */}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">

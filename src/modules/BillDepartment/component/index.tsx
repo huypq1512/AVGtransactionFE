@@ -4,11 +4,13 @@ import styled from "@emotion/styled";
 import { observer } from "mobx-react";
 import { control } from "../store";
 import { Button } from "antd";
+import Confirm from "./Confirm";
+import { baseURL } from "../../../api";
 @observer
 export default class index extends Component<any> {
     componentDidMount() {
-        control.getListTransaction(this.props.match.params.id)
-
+        control.store.id = this.props.match.params.id;
+        control.getListTransaction();
     }
     render() {
         return (
@@ -49,11 +51,11 @@ export default class index extends Component<any> {
                         </TableBody>
                     </Table>
                 </TableContainer >
-                <div>File tờ trình <a href={"http://localhost:4321/" + control.store.linkFile}>Tải xuống để xem</a></div>
+                <div>File tờ trình <a href={baseURL + control.store.linkFile}>Tải xuống để xem</a></div>
                 {
-                    control.store.state === "PENDING" && <Button type="primary" onClick={() => control.confirmFees(this.props.match.params.id)}>Xác nhận</Button>
+                    control.store.state === "PENDING" && <Button type="primary" onClick={() => control.store.isConfirm = true}>Xác nhận</Button>
                 }
-
+                <Confirm />
             </Wrap >
         )
     }

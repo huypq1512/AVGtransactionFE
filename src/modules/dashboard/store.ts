@@ -1,6 +1,6 @@
 import axios from "axios";
 import { observable } from "mobx";
-import { getRequest, postRequest } from "../../api";
+import { baseURL, getRequest, postRequest } from "../../api";
 import { customHistory } from "../router/router";
 import { notifiStore } from "../toastNotification/component";
 export interface IInput {
@@ -93,10 +93,8 @@ class Control {
             if (status === 200) {
                 notifiStore.content = body.message;
                 notifiStore.type = "Success";
-                // customHistory.replace("/transactionorder");
                 this.store.isNameTransactionOrder = false;
                 this.store.showCreate = false;
-                // this.refresh();
                 this.store.input = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
                 this.store.url = undefined;
             }
@@ -109,7 +107,7 @@ class Control {
             file
         );
         return new Promise<any>(resolve => {
-            axios.post('http://localhost:4321/upload_file', formData, {
+            axios.post(`${baseURL}upload_file`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     "x-access-token": localStorage.getItem("token")

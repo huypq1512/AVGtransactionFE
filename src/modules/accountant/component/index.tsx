@@ -4,10 +4,12 @@ import styled from "@emotion/styled";
 import { observer } from "mobx-react";
 import { control } from "../../BillDepartment/store";
 import { Button } from "antd";
+import Confirm from "./Confirm";
 @observer
 export default class index extends Component<any> {
     componentDidMount() {
-        control.getListTransaction(this.props.match.params.id)
+        control.store.id = this.props.match.params.id;
+        control.getListTransaction()
 
     }
     render() {
@@ -52,13 +54,9 @@ export default class index extends Component<any> {
                 <div>File tờ trình <a href={"http://localhost:4321/" + control.store.linkFile}>Tải xuống để xem</a></div>
                 {
                     control.store.state === "CONFIRMOFFEES" &&
-                    <div>
-                        <input onChange={(e) => control.store.otp = e.target.value} placeholder={"Nhập otp"} />
-                        <Button type="primary" onClick={() => control.confirmAccountant(this.props.match.params.id)}>Xác nhận</Button>
-                    </div>
-
+                    <Button type="primary" onClick={() => control.store.isConfirm = true}>Xác nhận</Button>
                 }
-
+                <Confirm />
             </Wrap >
         )
     }
