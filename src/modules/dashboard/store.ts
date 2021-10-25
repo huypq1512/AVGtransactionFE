@@ -3,6 +3,7 @@ import { observable } from "mobx";
 import { baseURL, getRequest, postRequest } from "../../api";
 import { customHistory } from "../router/router";
 import { notifiStore } from "../toastNotification/component";
+import { control as controlTransactionOrder } from "../transactionOrder/store";
 export interface IInput {
     name?: string,
     typeBank: string,
@@ -97,6 +98,9 @@ class Control {
                 this.store.showCreate = false;
                 this.store.input = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
                 this.store.url = undefined;
+                setTimeout(() => {
+                    controlTransactionOrder.getListTransactionOrder();
+                }, 1000);
             }
         }
     }

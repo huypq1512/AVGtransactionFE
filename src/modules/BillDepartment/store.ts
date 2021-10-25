@@ -22,7 +22,7 @@ class Control {
     store = new BillDepartmentStore();
     async getListTransaction() {
         const { status, body } = await getRequest("transaction?id=" + this.store.id, true);
-        console.log(status, body);
+        // console.log(status, body);
         if (status === 200) {
             this.store.listTransaction = body.transactionDetail;
             this.store.linkFile = body.file;
@@ -49,6 +49,7 @@ class Control {
             notifiStore.content = body.message;
             notifiStore.type = "Success";
             this.store.state = "CONFIRMOFACOUNTANT";
+            this.store.isConfirm = false;
         }
         else {
             notifiStore.content = body.message;

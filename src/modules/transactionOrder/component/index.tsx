@@ -26,11 +26,11 @@ export default class index extends React.Component {
     }
     render() {
         return (
-            <div className={"bg-gradient-to-r from-green-400 to-blue-500"}>
+            <div style={{ backgroundColor: "#FCD34D" }} >
                 <Wrap >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "36px" }}>
-                        <Button onClick={() => controlCreate.store.showCreate = true}>Tạo đơn mới</Button>
-                        <button className="bg-red-500 hover:bg-red-700 text-logout " onClick={() => controlAuth.logout()}>Logout</button>
+                        <Button style={{ borderRadius: "4px" }} onClick={() => controlCreate.store.showCreate = true}>Tạo đơn mới</Button>
+                        <button style={{ borderRadius: "4px" }} className="bg-red-500 hover:bg-red-700 text-logout " onClick={() => controlAuth.logout()}>Logout</button>
                     </div>
 
                     <TableContainer component={Paper}>

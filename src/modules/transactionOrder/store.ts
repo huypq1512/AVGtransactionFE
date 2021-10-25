@@ -17,7 +17,7 @@ class Control {
     async getListTransactionOrder() {
         const { status, body } = await getRequest("transaction_order?page=" + this.store.page, true);
         this.store.listTransactionOrder = status === 200 ? body : undefined;
-        console.log(body);
+        // console.log(body);
 
     }
 }

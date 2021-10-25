@@ -62,8 +62,7 @@ export default class index extends React.Component {
     async handleUploadFile(e: any) {
         const { status, body } = await control.uploadFile(e.target.files[0]);
         control.store.url = status === 200 ? body.url : "";
-        console.log(body.url);
-
+        e.target.value = null;
     }
     currencyFormat(num: string) {
         return num.split('').reverse().reduce((prev: any, next, index) => {
@@ -134,7 +133,7 @@ export default class index extends React.Component {
                     <div style={{ marginTop: "36px", marginBottom: "12px" }}>
                         <Button onClick={() => this.handleActionAdd()} type="primary">Thêm</Button>
                     </div>
-                    <input type="file" id="selectedFile1" style={{ display: "none" }} onChange={this.handleUploadFile} />
+                    <input type="file" ref={(e) => console.log(e)} id="selectedFile1" style={{ display: "none" }} onChange={this.handleUploadFile} />
                     {
                         control.store.url ? <div>{control.store.url}
                             <Button onClick={() => document.getElementById("selectedFile1")?.click()} type="primary">Tải lại tờ trình
