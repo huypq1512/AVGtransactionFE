@@ -48,7 +48,7 @@ export default class index extends React.Component {
                             </TableHead>
                             <TableBody>
                                 {
-                                    control.store.listTransactionOrder && control.store.listTransactionOrder.map((item, index) => {
+                                    (control.store.listTransactionOrder && control.store.listTransactionOrder.length > 0) ? control.store.listTransactionOrder.map((item, index) => {
                                         return (
                                             <TableRow key={index}>
                                                 <TableCell component="th" scope="row">
@@ -80,6 +80,7 @@ export default class index extends React.Component {
                                         )
 
                                     })
+                                        : <div style={{ height: "400px" }}>Chưa có dữ liệu</div>
                                 }
                             </TableBody>
                         </Table>

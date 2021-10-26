@@ -1,6 +1,6 @@
 import axios from "axios";
 import { observable } from "mobx";
-import { baseURL, getRequest, postRequest } from "../../api";
+import { baseURL, getRequest, getRequest1, postRequest } from "../../api";
 import { customHistory } from "../router/router";
 import { notifiStore } from "../toastNotification/component";
 import { control as controlTransactionOrder } from "../transactionOrder/store";
@@ -11,7 +11,6 @@ export interface IInput {
     price?: string,
     file?: string,
     createUser?: string,
-    phoneNumber?: string
 }
 interface IReqTransaction {
     transaction_detail: ITransactionnDetail[],
@@ -27,16 +26,16 @@ interface ITransactionnDetail {
     trans_amount: string,
     avg_reveived: string,
     name_receiver: string,
-    phone_receiver: string
 }
 class Dashboard {
-    @observable input: IInput[] = [{ name: undefined, phoneNumber: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
+    @observable input: IInput[] = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
     @observable url?: string;
     @observable name?: string;
     reqTransaction: IReqTransaction = { transaction_detail: [], transaction_order: { url: "", name: "" } };
     @observable isNameTransactionOrder: boolean = false;
     @observable errorInput: boolean = false;
     @observable showCreate: boolean = false;
+    @observable isInput: boolean = false;
 
 }
 class Control {
@@ -47,7 +46,7 @@ class Control {
     showPopup() {
         let isNull = false;
         this.store.input.map((item, index) => {
-            if (!item.bankNumber || !item.bankNumber || !item.price || !item.file || !item.name || !item.phoneNumber) {
+            if (!item.bankNumber || !item.bankNumber || !item.price || !item.file || !item.name) {
                 isNull = true;
             }
         });
@@ -67,7 +66,7 @@ class Control {
         this.store.reqTransaction = { transaction_detail: [], transaction_order: { url: "", name: "" } };
         let isNull = false;
         this.store.input.map((item, index) => {
-            if (!item.bankNumber || !item.bankNumber || !item.price || !item.file || !item.name || !item.phoneNumber) {
+            if (!item.bankNumber || !item.bankNumber || !item.price || !item.file || !item.name) {
                 isNull = true;
             }
             else {
@@ -76,8 +75,7 @@ class Control {
                     trans_type: item.typeBank,
                     trans_amount: item.price,
                     trans_number: item.bankNumber,
-                    name_receiver: item.name,
-                    phone_receiver: item.phoneNumber
+                    name_receiver: item.name
                 };
                 this.store.reqTransaction.transaction_detail.push(data);
 
@@ -124,9 +122,15 @@ class Control {
             })
         })
     }
-    async checkPhoneNumberZizi() {
-
+    async checkPhoneNumberZizi(bankNumber: string, index: number) {
+        const { status, body } = await getRequest1("http://hotro.avg.vn:3000/api/getwalletnumzizi/" + bankNumber);
+        if (status === 200 && body.length > 0) {
+            this.store.input[index].name = body[0].uSERNAME
+        }
+        else {
+            notifiStore.content = "Số tài khoản không tồn tại!";
+            notifiStore.type = "Error";
+        }
     }
-
 }
 export const control = new Control();

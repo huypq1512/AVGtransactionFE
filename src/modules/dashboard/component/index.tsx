@@ -82,12 +82,11 @@ export default class index extends React.Component {
                             <TableHead className={"header-table"}>
                                 <TableRow>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>STT</TableCell>
-                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số điện thoại</TableCell>
+                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tài khoản</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Tên đại lý</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Loại tài khoản (Lựa chọn)</TableCell>
-                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tài khoản</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tiền</TableCell>
-                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tiền avg thực nhận (File đính kèm) </TableCell>
+                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tiền avg thực nhận</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Action</TableCell>
                                 </TableRow>
                             </TableHead>
@@ -100,7 +99,7 @@ export default class index extends React.Component {
                                                     {index + 1}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <Input value={item.phoneNumber} onChange={(e) => item.phoneNumber = e.target.value} placeholder={"Nhập số điện thoại"} />
+                                                    <Input value={item.bankNumber} onChange={(e) => { item.bankNumber = e.target.value; item.bankNumber.length >= 10 && control.checkPhoneNumberZizi(item.bankNumber, index) }} placeholder={"Nhập số tài khoản"} />
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     <Input value={item.name} onChange={(e) => item.name = e.target.value} placeholder={"Nhập tên đại lý"} />
@@ -110,9 +109,6 @@ export default class index extends React.Component {
                                                         <Option value="Zizi">ZiZi</Option>
                                                         <Option value="BSMS-airtime">BSMS-airtime</Option>
                                                     </Select>
-                                                </TableCell>
-                                                <TableCell component="th" scope="row">
-                                                    <Input value={item.bankNumber} onChange={(e) => item.bankNumber = e.target.value} placeholder={"Nhập số tài khoản"} />
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     <Input style={{ boxSizing: "border-box", border: "1px solid #d9d9d9", borderRadius: "2px", padding: "4px 11px" }} value={item.price} placeholder={"Nhập số tiền"} onChange={(e: any) => item.price = e.target.value} />
@@ -133,7 +129,7 @@ export default class index extends React.Component {
                     <div style={{ marginTop: "36px", marginBottom: "12px" }}>
                         <Button onClick={() => this.handleActionAdd()} type="primary">Thêm</Button>
                     </div>
-                    <input type="file" ref={(e) => console.log(e)} id="selectedFile1" style={{ display: "none" }} onChange={this.handleUploadFile} />
+                    <input type="file" id="selectedFile1" style={{ display: "none" }} onChange={this.handleUploadFile} />
                     {
                         control.store.url ? <div>{control.store.url}
                             <Button onClick={() => document.getElementById("selectedFile1")?.click()} type="primary">Tải lại tờ trình
