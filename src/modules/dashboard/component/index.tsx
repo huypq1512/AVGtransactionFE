@@ -115,11 +115,11 @@ export default class index extends React.Component {
                                                     <Input value={item.bankNumber} onChange={(e) => item.bankNumber = e.target.value} placeholder={"Nhập số tài khoản"} />
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <CurrencyFormat style={{ boxSizing: "border-box", border: "1px solid #d9d9d9", borderRadius: "2px", padding: "4px 11px" }} value={item.price} placeholder={"Nhập số tiền"} onChange={(e: any) => item.price = e.target.value} thousandSeparator={true} />
+                                                    <Input style={{ boxSizing: "border-box", border: "1px solid #d9d9d9", borderRadius: "2px", padding: "4px 11px" }} value={item.price} placeholder={"Nhập số tiền"} onChange={(e: any) => item.price = e.target.value} />
                                                     {/* <input value={item.price && this.currencyFormat(item.price)} onChange={(e) => item.price = e.target.value} placeholder={"Nhập số tiền"} /> */}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <CurrencyFormat style={{ boxSizing: "border-box", border: "1px solid #d9d9d9", borderRadius: "2px", padding: "4px 11px" }} value={item.file} placeholder={"Nhập số tiền"} onChange={(e: any) => item.file = e.target.value} thousandSeparator={true} />
+                                                    <Input style={{ boxSizing: "border-box", border: "1px solid #d9d9d9", borderRadius: "2px", padding: "4px 11px" }} value={item.file} placeholder={"Nhập số tiền"} onChange={(e: any) => item.file = e.target.value} />
                                                     {/* <input value={item.file} onChange={(e) => item.file = e.target.value} placeholder={"Nhập số tiền"} /> */}
                                                 </TableCell>
                                                 < TableCell component="th" scope="row" > <Button onClick={() => this.handleActionDetele(index)} style={{ backgroundColor: "#DC2626" }} type="primary">Xoá</Button></TableCell>
