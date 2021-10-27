@@ -18,7 +18,6 @@ interface IReqTransaction {
         url: string,
         name: string,
     }
-
 }
 interface ITransactionnDetail {
     trans_type: string,

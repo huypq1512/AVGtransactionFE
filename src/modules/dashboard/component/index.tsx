@@ -102,7 +102,7 @@ export default class index extends React.Component {
                                                     <Input value={item.bankNumber} onChange={(e) => { item.bankNumber = e.target.value; item.bankNumber.length >= 10 && control.checkPhoneNumberZizi(item.bankNumber, index) }} placeholder={"Nhập số tài khoản"} />
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <Input value={item.name} onChange={(e) => item.name = e.target.value} placeholder={"Nhập tên đại lý"} />
+                                                    <Input disabled={true} value={item.name} onChange={(e) => item.name = e.target.value} placeholder={"Nhập tên đại lý"} />
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     <Select style={{ width: "200px" }} onChange={(e) => item.typeBank = e} value={item.typeBank}>
