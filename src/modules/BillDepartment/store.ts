@@ -31,7 +31,7 @@ class Control {
 
     }
     async confirmFees() {
-        const { status, body } = await putRequest("confirm_fees", true, { id: this.store.id });
+        const { status, body } = await putRequest("confirm_fees", true, { id: this.store.id, otp: this.store.otp });
         if (status === 200) {
             notifiStore.content = body.message;
             notifiStore.type = "Success";
