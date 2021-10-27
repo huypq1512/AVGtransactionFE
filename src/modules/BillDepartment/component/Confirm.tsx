@@ -9,7 +9,7 @@ export default class Confirm extends React.Component {
         return (
             <Modal zIndex={100} onCancel={() => control.store.isConfirm = false} onOk={() => control.confirmFees()} okText={"Xác nhận"} cancelText={"Huỷ"} visible={control.store.isConfirm}>
                 <Input onChange={(e) => control.store.otp = e.target.value} />
-                <Button onClick={() => control.sendOtp("pc")}>Gửi lại mã xác nhận</Button>
+                <Button type="link" onClick={() => control.sendOtp("pc")}>Gửi lại mã xác nhận</Button>
             </Modal>
         )
     }
