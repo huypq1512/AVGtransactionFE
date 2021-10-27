@@ -1,5 +1,5 @@
 import { observable } from "mobx";
-import { getRequest, putRequest } from "../../api";
+import { getRequest, postRequest, putRequest } from "../../api";
 import { notifiStore } from "../toastNotification/component";
 interface IListTransaction {
     transNumber: string,
@@ -50,6 +50,17 @@ class Control {
             notifiStore.type = "Success";
             this.store.state = "CONFIRMOFACOUNTANT";
             this.store.isConfirm = false;
+        }
+        else {
+            notifiStore.content = body.message;
+            notifiStore.type = "Error";
+        }
+    }
+    async sendOtp(type: "kt" | "pc" = "pc") {
+        const { status, body } = await postRequest("re_send", false, { id: this.store.id, type: type });
+        if (status === 200) {
+            notifiStore.content = body.message;
+            notifiStore.type = "Success";
         }
         else {
             notifiStore.content = body.message;

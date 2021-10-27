@@ -9,8 +9,7 @@ import Confirm from "./Confirm";
 export default class index extends Component<any> {
     componentDidMount() {
         control.store.id = this.props.match.params.id;
-        control.getListTransaction()
-
+        control.getListTransaction();
     }
     render() {
         return (
