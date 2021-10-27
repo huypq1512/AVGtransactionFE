@@ -124,7 +124,8 @@ class Control {
     async checkPhoneNumberZizi(bankNumber: string, index: number) {
         const { status, body } = await getRequest1("http://hotro.avg.vn:3000/api/getwalletnumzizi/" + bankNumber);
         if (status === 200 && body.length > 0) {
-            this.store.input[index].name = body[0].uSERNAME
+            console.log(body);
+            this.store.input[index].name = body[0].hOTEN
         }
         else {
             notifiStore.content = "Số tài khoản không tồn tại!";
