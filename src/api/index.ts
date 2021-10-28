@@ -1,6 +1,7 @@
 import Axios, { Method } from "axios";
 import humps from "humps";
 import { loadingStore } from "../modules/loading";
+import { customHistory } from "../modules/router/router";
 export interface IApiResponse<T> {
     status: number
     body: T
@@ -26,6 +27,11 @@ function getRequest(url: string, isToken: boolean = true): Promise<IApiResponse<
             })
             .catch(error => {
                 try {
+                    if (error.response.status == 401) {
+                        localStorage.clear();
+                        window.location.replace("/login");
+
+                    }
                     resolve({
                         status: error.response.status,
                         body: humps.camelizeKeys(error.response.data)
@@ -63,6 +69,10 @@ function apiCall(url: string, method: Method, isToken: boolean = true, data?: { 
             })
             .catch(error => {
                 try {
+                    if (error.response.status == 401) {
+                        localStorage.clear();
+                        window.location.replace("/login");
+                    }
                     resolve({
                         status: error.response.status,
                         body: humps.camelizeKeys(error.response.data)

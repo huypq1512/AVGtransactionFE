@@ -11,6 +11,7 @@ export interface IInput {
     price?: string,
     file?: string,
     createUser?: string,
+    wallet_number?: string
 }
 interface IReqTransaction {
     transaction_detail: ITransactionnDetail[],
@@ -25,9 +26,10 @@ interface ITransactionnDetail {
     trans_amount: string,
     avg_reveived: string,
     name_receiver: string,
+    wallet_number: string
 }
 class Dashboard {
-    @observable input: IInput[] = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
+    @observable input: IInput[] = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined, wallet_number: undefined }];
     @observable url?: string;
     @observable name?: string;
     reqTransaction: IReqTransaction = { transaction_detail: [], transaction_order: { url: "", name: "" } };
@@ -65,7 +67,7 @@ class Control {
         this.store.reqTransaction = { transaction_detail: [], transaction_order: { url: "", name: "" } };
         let isNull = false;
         this.store.input.map((item, index) => {
-            if (!item.bankNumber || !item.bankNumber || !item.price || !item.file || !item.name) {
+            if (!item.bankNumber || !item.bankNumber || !item.price || !item.file || !item.name || !item.wallet_number) {
                 isNull = true;
             }
             else {
@@ -74,7 +76,8 @@ class Control {
                     trans_type: item.typeBank,
                     trans_amount: item.price,
                     trans_number: item.bankNumber,
-                    name_receiver: item.name
+                    name_receiver: item.name,
+                    wallet_number: item.wallet_number
                 };
                 this.store.reqTransaction.transaction_detail.push(data);
 
@@ -125,7 +128,8 @@ class Control {
         const { status, body } = await getRequest1("http://hotro.avg.vn:3000/api/getwalletnumzizi/" + bankNumber);
         if (status === 200 && body.length > 0) {
             console.log(body);
-            this.store.input[index].name = body[0].hOTEN
+            this.store.input[index].name = body[0].hOTEN;
+            this.store.input[index].wallet_number = body[0].wALLETNUM;
         }
         else {
             notifiStore.content = "Số tài khoản không tồn tại!";

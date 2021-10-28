@@ -9,6 +9,7 @@ import { notifiStore } from '../../toastNotification/component';
 import { customHistory } from '../../router/router';
 import CurrencyFormat from 'react-currency-format';
 import NameTransactionOrder from '../popup/NameTransactionOrder';
+import { getRequest1 } from '../../../api';
 const { Option } = Select;
 
 @observer
@@ -22,9 +23,22 @@ export default class index extends React.Component {
     convertToJson = (headers: any, data: any) => {
         const rows: any = []
         data.forEach((row: any) => {
-            let rowData: any = {}
-            row.forEach((element: any, index: any) => {
-                rowData[headers[index]] = element
+            let rowData: any = {};
+            console.log(row);
+
+            row.map(async (item: any, index: any) => {
+
+
+                if (index == 0) {
+                    const result = await getRequest1("http://hotro.avg.vn:3000/api/getwalletnumzizi/" + item);
+                    console.log(result.body[0].hOTEN);
+                    rowData[headers[index]] = item;
+                    rowData[headers[index + 1]] = result.body[0].hOTEN;
+                }
+                console.log(index);
+                if (index > 1) {
+                    rowData[headers[index]] = item;
+                }
             })
             rows.push(rowData)
         });
@@ -41,7 +55,7 @@ export default class index extends React.Component {
                     const workSheetName = workBook.SheetNames[0]
                     const workSheet = workBook.Sheets[workSheetName]
                     const fileData = XLSX.utils.sheet_to_json(workSheet, { header: 1 });
-                    const headers1 = ["name", "typeBank", "bankNumber", "price", "file", "createUser"]
+                    const headers1 = ["bankNumber", "name", "typeBank", , "price", "file"]
                     fileData.splice(0, 1);
                     this.handleMapExcel(this.convertToJson(headers1, fileData));
                 }
@@ -54,20 +68,20 @@ export default class index extends React.Component {
         } catch (error) {
 
         }
+        finally {
+            e.target.value = null;
+        }
 
     }
     handleMapExcel(data: any) {
+        console.log(data);
+
         control.store.input = data;
     }
     async handleUploadFile(e: any) {
         const { status, body } = await control.uploadFile(e.target.files[0]);
         control.store.url = status === 200 ? body.url : "";
         e.target.value = null;
-    }
-    currencyFormat(num: string) {
-        return num.split('').reverse().reduce((prev: any, next, index) => {
-            return ((index % 3) ? next : (next + ',')) + prev
-        })
     }
     render() {
         return (
