@@ -44,6 +44,7 @@ export default class index extends React.Component {
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Người tạo</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Thời gian tạo</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Trạng thái</TableCell>
+                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Action</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -75,6 +76,9 @@ export default class index extends React.Component {
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     {item.state === "PENDING" ? "Đợi phòng cước duyệt" : item.state === "CONFIRMOFFEES" ? "Đợi phòng kế toán duyệt" : item.state === "CONFIRMOFACOUNTANT" ? "Đã xong" : item.state === "REJECT" ? "Từ chối" : "Đợi duyệt"}
+                                                </TableCell>
+                                                <TableCell component="th" scope="row">
+                                                    <a>Xuất báo cáo</a>
                                                 </TableCell>
                                             </TableRow>
                                         )

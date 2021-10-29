@@ -41,8 +41,6 @@ export default class index extends Component<any> {
                                             <TableCell component="th" scope="row">{item.avgReveived}</TableCell>
                                             <TableCell component="th" scope="row">{item.createUser}</TableCell>
                                         </TableRow>
-
-
                                     )
                                 })
                             }
