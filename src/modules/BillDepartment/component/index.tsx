@@ -21,7 +21,6 @@ export default class index extends Component<any> {
                             <TableRow>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>STT</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Tên đại lý</TableCell>
-                                <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số điện thoại</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Loại tài khoản (Lựa chọn)</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tài khoản</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tiền</TableCell>
@@ -36,7 +35,6 @@ export default class index extends Component<any> {
                                         <TableRow key={index}>
                                             <TableCell component="th" scope="row">{index + 1}</TableCell>
                                             <TableCell component="th" scope="row">{item.receiverFullName}</TableCell>
-                                            <TableCell component="th" scope="row">{item.phoneNumber}</TableCell>
                                             <TableCell component="th" scope="row">{item.transType}</TableCell>
                                             <TableCell component="th" scope="row">{item.transNumber}</TableCell>
                                             <TableCell component="th" scope="row">{item.transAmount}</TableCell>

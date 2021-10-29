@@ -5,6 +5,7 @@ import { observer } from "mobx-react";
 import { control } from "../../BillDepartment/store";
 import { Button } from "antd";
 import Confirm from "./Confirm";
+import { baseURL } from "../../../api";
 @observer
 export default class index extends Component<any> {
     componentDidMount() {
@@ -20,7 +21,6 @@ export default class index extends Component<any> {
                             <TableRow>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>STT</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Tên đại lý</TableCell>
-                                <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số điện thoại</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Loại tài khoản (Lựa chọn)</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tài khoản</TableCell>
                                 <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tiền</TableCell>
@@ -35,7 +35,6 @@ export default class index extends Component<any> {
                                         <TableRow key={index}>
                                             <TableCell component="th" scope="row">{index + 1}</TableCell>
                                             <TableCell component="th" scope="row">{item.receiverFullName}</TableCell>
-                                            <TableCell component="th" scope="row">{item.phoneNumber}</TableCell>
                                             <TableCell component="th" scope="row">{item.transType}</TableCell>
                                             <TableCell component="th" scope="row">{item.transNumber}</TableCell>
                                             <TableCell component="th" scope="row">{item.transAmount}</TableCell>
@@ -50,7 +49,7 @@ export default class index extends Component<any> {
                         </TableBody>
                     </Table>
                 </TableContainer >
-                <div>File tờ trình <a href={"http://localhost:4321/" + control.store.linkFile}>Tải xuống để xem</a></div>
+                <div>File tờ trình <a href={baseURL + control.store.linkFile}>Tải xuống để xem</a></div>
                 {
                     control.store.state === "CONFIRMOFFEES" &&
                     <Button type="primary" onClick={() => control.store.isConfirm = true}>Xác nhận</Button>

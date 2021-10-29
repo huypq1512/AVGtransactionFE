@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import React from "react";
 import styled from '@emotion/styled';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
-import { control } from '../store';
+import { control, IInput } from '../store';
 import { Select, Button, Input, Modal } from 'antd';
 import XLSX from 'xlsx';
 import { notifiStore } from '../../toastNotification/component';
@@ -14,6 +14,9 @@ const { Option } = Select;
 
 @observer
 export default class index extends React.Component {
+    state = {
+        isRender: false
+    }
     handleActionAdd() {
         control.store.input.push({ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined });
     }
@@ -24,23 +27,11 @@ export default class index extends React.Component {
         const rows: any = []
         data.forEach((row: any) => {
             let rowData: any = {};
-            console.log(row);
-
             row.map(async (item: any, index: any) => {
-
-
-                if (index == 0) {
-                    const result = await getRequest1("http://hotro.avg.vn:3000/api/getwalletnumzizi/" + item);
-                    console.log(result.body[0].hOTEN);
-                    rowData[headers[index]] = item;
-                    rowData[headers[index + 1]] = result.body[0].hOTEN;
-                }
-                console.log(index);
-                if (index > 1) {
-                    rowData[headers[index]] = item;
-                }
+                rowData[headers[index]] = item;
             })
-            rows.push(rowData)
+            rows.push(rowData);
+            this.setState({ isRender: !this.state.isRender })
         });
         return rows;
     }
@@ -55,7 +46,7 @@ export default class index extends React.Component {
                     const workSheetName = workBook.SheetNames[0]
                     const workSheet = workBook.Sheets[workSheetName]
                     const fileData = XLSX.utils.sheet_to_json(workSheet, { header: 1 });
-                    const headers1 = ["bankNumber", "name", "typeBank", , "price", "file"]
+                    const headers1 = ["bankNumber", "name", "typeBank", "price", "file"]
                     fileData.splice(0, 1);
                     this.handleMapExcel(this.convertToJson(headers1, fileData));
                 }
@@ -73,9 +64,7 @@ export default class index extends React.Component {
         }
 
     }
-    handleMapExcel(data: any) {
-        console.log(data);
-
+    handleMapExcel(data: IInput[]) {
         control.store.input = data;
     }
     async handleUploadFile(e: any) {
@@ -107,6 +96,8 @@ export default class index extends React.Component {
                             <TableBody>
                                 {
                                     control.store.input.map((item, index) => {
+                                        console.log(item.bankNumber);
+
                                         return (
                                             <TableRow key={index}>
                                                 <TableCell component="th" scope="row">
