@@ -5,7 +5,6 @@ export default class index extends React.Component {
     constructor(props: any) {
         super(props);
         document.title = "Login";
-        localStorage.getItem("token") ? customHistory.replace("/transactionorder") : customHistory.replace("/login");
     }
     componentDidMount() {
 

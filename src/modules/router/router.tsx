@@ -22,10 +22,9 @@ export default function App() {
   return (
     <Router history={customHistory}>
       <Switch >
-        <Route exact path="/login" component={Login} />
-
         <Route exact path="/billdepartment/:id" component={BillDepartment} />
         <Route exact path="/accountant/:id" component={Accountant} />
+        <Route exact path="/login" component={Login} />
         <Route
           exact
           path="/"
