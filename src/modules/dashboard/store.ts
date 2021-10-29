@@ -16,7 +16,7 @@ export interface IInput {
 interface IReqTransaction {
     transaction_detail: ITransactionnDetail[],
     transaction_order: {
-        url: string,
+        url?: string,
         name: string,
     }
 }
@@ -83,7 +83,7 @@ class Control {
 
             }
         });
-        if (isNull || !this.store.url) {
+        if (isNull) {
             notifiStore.content = "Vui lòng nhập hết thông tin!";
             notifiStore.type = "Warning";
         }
