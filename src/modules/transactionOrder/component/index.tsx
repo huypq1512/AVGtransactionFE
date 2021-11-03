@@ -11,6 +11,7 @@ import { customHistory } from "../../router/router";
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import CreateTransaction from "../../dashboard/component"
 import { baseURL } from "../../../api";
+import { control as controlReport } from "../../report/store";
 @observer
 export default class index extends React.Component {
     componentDidMount() {
@@ -79,6 +80,7 @@ export default class index extends React.Component {
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     <Button onClick={() => window.open("http://localhost:3002/report/" + item.id)}>Chi tiết</Button>
+                                                    <Button onClick={() => { controlReport.store.id = item.id; controlReport.exportExcel() }}>Xuất excel</Button>
                                                 </TableCell>
                                             </TableRow>
                                         )

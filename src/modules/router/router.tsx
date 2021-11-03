@@ -37,14 +37,12 @@ export default function App() {
           }}
         />
         {
-          localStorage.getItem("token") ?
-            <>
-              <Route exact path="/dashboard" component={Dashboard} />
+          localStorage.getItem("token") &&
+          <>
+            <Route exact path="/dashboard" component={Dashboard} />
 
-              <Route exact path="/transactionorder" component={TransactionOrder} />
-            </>
-            :
-            customHistory.replace("/login")
+            <Route exact path="/transactionorder" component={TransactionOrder} />
+          </>
         }
       </Switch>
     </Router>

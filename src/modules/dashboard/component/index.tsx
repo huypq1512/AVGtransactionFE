@@ -81,7 +81,7 @@ export default class index extends React.Component {
                     <div style={{ display: "flex", flexDirection: "row", width: "500px", alignItems: "center", margin: "12px" }}>
                         <span style={{ width: "150px" }}>Tên đơn hàng</span>
                         <div>
-                            <Input placeholder={"Vui lòng nhập tên đơn hàng"} height={20} width={100} onChange={(e) => { control.store.errorInput = false; control.store.name = e.target.value }} />
+                            <Input value={control.store.name} placeholder={"Vui lòng nhập tên đơn hàng"} height={20} width={100} onChange={(e) => { control.store.errorInput = false; control.store.name = e.target.value }} />
                             {control.store.errorInput && <div style={{ color: "red" }}>Vui lòng nhập tên</div>}
                         </div>
 
