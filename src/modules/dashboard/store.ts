@@ -33,10 +33,10 @@ class Dashboard {
     @observable url?: string;
     @observable name?: string;
     reqTransaction: IReqTransaction = { transaction_detail: [], transaction_order: { url: "", name: "" } };
-    @observable isNameTransactionOrder: boolean = false;
     @observable errorInput: boolean = false;
     @observable showCreate: boolean = false;
     @observable isInput: boolean = false;
+    @observable isConfirmCreateTransaction: boolean = false;
 
 }
 class Control {
@@ -45,6 +45,10 @@ class Control {
         this.store = new Dashboard();
     }
     showPopup() {
+        if (!this.store.name) {
+            this.store.errorInput = true;
+            return false;
+        }
         let isNull = false;
         this.store.input.map((item, index) => {
             if (!item.bankNumber || !item.bankNumber || !item.price || !item.file || !item.name) {
@@ -56,7 +60,7 @@ class Control {
             notifiStore.type = "Warning";
         }
         else {
-            this.store.isNameTransactionOrder = true;
+            this.store.isConfirmCreateTransaction = true;
         }
     }
     async createTranstion() {
@@ -67,7 +71,7 @@ class Control {
         this.store.reqTransaction = { transaction_detail: [], transaction_order: { url: "", name: "" } };
         let isNull = false;
         this.store.input.map((item, index) => {
-            if (!item.bankNumber || !item.bankNumber || !item.price || !item.file || !item.name || !item.wallet_number) {
+            if (!item.bankNumber || !item.price || !item.file || !item.name || !item.wallet_number) {
                 isNull = true;
             }
             else {
@@ -94,7 +98,7 @@ class Control {
             if (status === 200) {
                 notifiStore.content = body.message;
                 notifiStore.type = "Success";
-                this.store.isNameTransactionOrder = false;
+                this.store.isConfirmCreateTransaction = false;
                 this.store.showCreate = false;
                 this.store.input = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
                 this.store.url = undefined;

@@ -7,9 +7,7 @@ import { control } from "../store";
 export default class NameTransactionOrder extends React.Component {
     render() {
         return (
-            <Modal title={"Tên của đơn hàng"} visible={control.store.isNameTransactionOrder} onCancel={() => control.store.isNameTransactionOrder = false} onOk={() => control.createTranstion()}>
-                <Input onChange={(e) => { control.store.errorInput = false; control.store.name = e.target.value }} />
-                {control.store.errorInput && <div style={{ color: "red" }}>Vui lòng nhập tên</div>}
+            <Modal title={"Xác nhận tạo đơn"} visible={control.store.isConfirmCreateTransaction} onCancel={() => control.store.isConfirmCreateTransaction = false} onOk={() => control.createTranstion()}>
             </Modal>
         );
     }

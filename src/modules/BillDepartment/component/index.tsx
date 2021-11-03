@@ -3,8 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import styled from "@emotion/styled";
 import { observer } from "mobx-react";
 import { control } from "../store";
-import { Button } from "antd";
-import Confirm from "./Confirm";
+import { Button, Input } from "antd";
 import { baseURL } from "../../../api";
 @observer
 export default class index extends Component<any> {
@@ -51,9 +50,18 @@ export default class index extends Component<any> {
                 </TableContainer >
                 <div>File tờ trình <a href={baseURL + control.store.linkFile}>Tải xuống để xem</a></div>
                 {
-                    control.store.state === "PENDING" && <Button type="primary" onClick={() => control.store.isConfirm = true}>Xác nhận</Button>
+                    control.store.state === "PENDING" &&
+                    <div style={{ marginTop: "12px" }}>
+                        {
+                            control.store.isSpam ?
+                                <Button style={{ width: "200px" }} type="link"  >{control.store.timeSpam}</Button> :
+                                <Button style={{ width: "200px" }} type="link" onClick={() => control.sendOtp("pc")}>Gửi lại mã xác nhận</Button>
+                        }
+
+                        <Input placeholder={"Vui lòng nhập mã xác nhận"} style={{ width: "200px" }} onChange={(e) => control.store.otp = e.target.value} />
+                        <Button type="primary" onClick={() => control.confirmFees()}>Duyệt đơn hàng</Button>
+                    </div>
                 }
-                <Confirm />
             </Wrap >
         )
     }

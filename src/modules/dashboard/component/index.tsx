@@ -77,9 +77,15 @@ export default class index extends React.Component {
             <Modal zIndex={100} width={1600} title={"Tạo đơn hàng mới"} onCancel={() => control.store.showCreate = false} cancelText={"Huỷ"} onOk={() => control.showPopup()} okText={"Tạo đơn"} visible={control.store.showCreate}>
                 <Wrap>
                     <input type="file" id="selectedFile" style={{ display: "none" }} accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" onChange={this.importExcel} />
-                    <Button style={{ backgroundColor: "#059669", borderTopLeftRadius: "8px", marginBottom: "24px" }} onClick={() => document.getElementById("selectedFile")?.click()} type="primary">Import file excel
+                    <Button style={{ backgroundColor: "#059669", borderTopLeftRadius: "8px", marginBottom: "24px" }} onClick={() => document.getElementById("selectedFile")?.click()} type="primary">Import file excel</Button>
+                    <div style={{ display: "flex", flexDirection: "row", width: "500px", alignItems: "center", margin: "12px" }}>
+                        <span style={{ width: "150px" }}>Tên đơn hàng</span>
+                        <div>
+                            <Input placeholder={"Vui lòng nhập tên đơn hàng"} height={20} width={100} onChange={(e) => { control.store.errorInput = false; control.store.name = e.target.value }} />
+                            {control.store.errorInput && <div style={{ color: "red" }}>Vui lòng nhập tên</div>}
+                        </div>
 
-                    </Button>
+                    </div>
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">
                             <TableHead className={"header-table"}>
@@ -88,7 +94,7 @@ export default class index extends React.Component {
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tài khoản</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Tên đại lý</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Loại tài khoản (Lựa chọn)</TableCell>
-                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tiền</TableCell>
+                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tiền cấp cho đại lý</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Số tiền avg thực nhận</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Action</TableCell>
                                 </TableRow>
@@ -96,8 +102,6 @@ export default class index extends React.Component {
                             <TableBody>
                                 {
                                     control.store.input.map((item, index) => {
-                                        console.log(item.bankNumber);
-
                                         return (
                                             <TableRow key={index}>
                                                 <TableCell component="th" scope="row">
@@ -107,7 +111,11 @@ export default class index extends React.Component {
                                                     <Input value={item.bankNumber} onChange={(e) => { item.bankNumber = e.target.value; item.bankNumber.length >= 10 && control.checkPhoneNumberZizi(item.bankNumber, index) }} placeholder={"Nhập số tài khoản"} />
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <Input disabled={true} value={item.name} onChange={(e) => item.name = e.target.value} placeholder={"Nhập tên đại lý"} />
+                                                    <div style={{ boxSizing: "border-box", border: "1px solid #d9d9d9", borderRadius: "2px", padding: "4px 11px", height: "30px", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                        {
+                                                            item.name
+                                                        }
+                                                    </div>
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     <Select style={{ width: "200px" }} onChange={(e) => item.typeBank = e} value={item.typeBank}>
@@ -116,11 +124,11 @@ export default class index extends React.Component {
                                                     </Select>
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <Input style={{ boxSizing: "border-box", border: "1px solid #d9d9d9", borderRadius: "2px", padding: "4px 11px" }} value={item.price} placeholder={"Nhập số tiền"} onChange={(e: any) => item.price = e.target.value} />
+                                                    <Input value={item.price} placeholder={"Nhập số tiền"} onChange={(e: any) => item.price = e.target.value} />
                                                     {/* <input value={item.price && this.currencyFormat(item.price)} onChange={(e) => item.price = e.target.value} placeholder={"Nhập số tiền"} /> */}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <Input style={{ boxSizing: "border-box", border: "1px solid #d9d9d9", borderRadius: "2px", padding: "4px 11px" }} value={item.file} placeholder={"Nhập số tiền"} onChange={(e: any) => item.file = e.target.value} />
+                                                    <Input value={item.file} placeholder={"Nhập số tiền"} onChange={(e: any) => item.file = e.target.value} />
                                                     {/* <input value={item.file} onChange={(e) => item.file = e.target.value} placeholder={"Nhập số tiền"} /> */}
                                                 </TableCell>
                                                 < TableCell component="th" scope="row" > <Button onClick={() => this.handleActionDetele(index)} style={{ backgroundColor: "#DC2626" }} type="primary">Xoá</Button></TableCell>
@@ -145,7 +153,7 @@ export default class index extends React.Component {
                     }
                     <NameTransactionOrder />
                 </Wrap >
-            </Modal>
+            </Modal >
         )
     }
 }

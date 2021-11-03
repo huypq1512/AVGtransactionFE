@@ -39,7 +39,7 @@ export default class index extends React.Component {
                                 <TableRow>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>STT</TableCell>
                                     {/* <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>ID</TableCell> */}
-                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Tên đơn</TableCell>
+                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Tên đơn hàng</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>File tờ trình</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Người tạo</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Thời gian tạo</TableCell>
@@ -78,7 +78,7 @@ export default class index extends React.Component {
                                                     {item.state === "PENDING" ? "Đợi phòng cước duyệt" : item.state === "CONFIRMOFFEES" ? "Đợi phòng kế toán duyệt" : item.state === "CONFIRMOFACOUNTANT" ? "Đã xong" : item.state === "REJECT" ? "Từ chối" : "Đợi duyệt"}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <a>Xuất báo cáo</a>
+                                                    <Button onClick={() => window.open("http://localhost:3002/report/" + item.id)}>Xuất báo cáo</Button>
                                                 </TableCell>
                                             </TableRow>
                                         )

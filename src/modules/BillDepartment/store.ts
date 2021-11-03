@@ -17,6 +17,8 @@ class BillDepartmentStore {
     otp: string = "";
     @observable isConfirm: boolean = false;
     id: string = "";
+    @observable isSpam: boolean = false;
+    @observable timeSpam: number = 30;
 }
 class Control {
     store = new BillDepartmentStore();
@@ -61,11 +63,23 @@ class Control {
         if (status === 200) {
             notifiStore.content = body.message;
             notifiStore.type = "Success";
+            this.spamOtp();
         }
         else {
             notifiStore.content = body.message;
             notifiStore.type = "Error";
         }
+    }
+    spamOtp() {
+        this.store.isSpam = true;
+        this.store.timeSpam = 30;
+        const x = setInterval(() => {
+            this.store.timeSpam -= 1;
+            if (this.store.timeSpam == 0) {
+                this.store.isSpam = false;
+                clearInterval(x);
+            }
+        }, 1000)
     }
 
 }
