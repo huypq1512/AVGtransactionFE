@@ -72,13 +72,13 @@ export default class index extends React.Component {
                                                     {/* {
                                                     item.createTime
                                                 } */}
-                                                    {moment(Number(item.createTime)).format("DD/MM/YYYY HH:MM:SS")}
+                                                    {moment(item.createTime).format("DD/MM/yyyy")}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     {item.state === "PENDING" ? "Đợi phòng cước duyệt" : item.state === "CONFIRMOFFEES" ? "Đợi phòng kế toán duyệt" : item.state === "CONFIRMOFACOUNTANT" ? "Đã xong" : item.state === "REJECT" ? "Từ chối" : "Đợi duyệt"}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <Button onClick={() => window.open("http://localhost:3002/report/" + item.id)}>Xuất báo cáo</Button>
+                                                    <Button onClick={() => window.open("http://localhost:3002/report/" + item.id)}>Chi tiết</Button>
                                                 </TableCell>
                                             </TableRow>
                                         )

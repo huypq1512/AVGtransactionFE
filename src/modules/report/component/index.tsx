@@ -14,8 +14,8 @@ export default class index extends Component<any> {
         return (
             <div>
                 <div style={{ marginTop: "36px", marginLeft: "24px", marginBottom: "24px" }}>
-                    <div >CÔNG TY CỔ PHẦN NGHE NHÌN TOÀN CẦU</div>
-                    <div>Phòng: Công nghệ</div>
+                    <div style={{ fontWeight: "bold" }}>CÔNG TY CỔ PHẦN NGHE NHÌN TOÀN CẦU</div>
+                    <div style={{ fontWeight: "bold" }}>Phòng: <span style={{ fontWeight: "unset" }}>Công nghệ</span></div>
                     <div style={{ fontWeight: "bold", fontSize: "24px", display: "flex", alignItems: "center", justifyContent: "center" }}>Phiếu xác nhận nạp tiền</div>
                 </div>
 
@@ -48,7 +48,7 @@ export default class index extends Component<any> {
                                             <TableCell component="th" scope="row">{item.avgReveived}</TableCell>
                                             <TableCell component="th" scope="row">{"12312"}</TableCell>
                                             <TableCell component="th" scope="row">{item.confirmFees}</TableCell>
-                                            <TableCell component="th" scope="row">{item.confirmFees}</TableCell>
+                                            <TableCell component="th" scope="row">{item.confirmAccountant}</TableCell>
                                             <TableCell component="th" scope="row">{moment(item.date).format("DD/MM/yyyy")}</TableCell>
                                         </TableRow>
                                     )
@@ -84,8 +84,8 @@ export default class index extends Component<any> {
                     </div>
                 </div>
 
-                <div>
-                    <Button onClick={() => control.exportExcel()}>Export excel</Button>
+                <div style={{ position: "absolute", right: "12px", top: "12px" }}>
+                    <Button style={{ backgroundColor: "#00CC00", color: "#ffffff" }} onClick={() => control.exportExcel()}>Export excel</Button>
                 </div>
 
             </div>
