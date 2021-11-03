@@ -11,7 +11,8 @@ interface IResReport {
     nameAgency: string
     transAmount: string
     transNumber: string
-    typeTrans: string
+    typeTrans: string,
+    codeWallet: string,
 }
 interface IExportExcel {
     "Tên đại lý": string,

@@ -101,6 +101,7 @@ class Control {
                 this.store.isConfirmCreateTransaction = false;
                 this.store.showCreate = false;
                 this.store.input = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
+                this.store.name = undefined;
                 this.store.url = undefined;
                 setTimeout(() => {
                     controlTransactionOrder.getListTransactionOrder();

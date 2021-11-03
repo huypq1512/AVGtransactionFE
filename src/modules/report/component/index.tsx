@@ -46,7 +46,7 @@ export default class index extends Component<any> {
                                             <TableCell component="th" scope="row">{item.typeTrans}</TableCell>
                                             <TableCell component="th" scope="row">{item.transAmount}</TableCell>
                                             <TableCell component="th" scope="row">{item.avgReveived}</TableCell>
-                                            <TableCell component="th" scope="row">{"12312"}</TableCell>
+                                            <TableCell component="th" scope="row">{item.codeWallet}</TableCell>
                                             <TableCell component="th" scope="row">{item.confirmFees}</TableCell>
                                             <TableCell component="th" scope="row">{item.confirmAccountant}</TableCell>
                                             <TableCell component="th" scope="row">{moment(item.date).format("DD/MM/yyyy")}</TableCell>

@@ -7,7 +7,7 @@ export default class index extends React.Component {
         document.title = "Login";
     }
     componentDidMount() {
-
+        localStorage.getItem("token") && window.location.replace("/transactionorder");
     }
     render() {
         return (

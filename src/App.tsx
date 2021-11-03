@@ -8,6 +8,10 @@ import ToastNotification from "./modules/toastNotification/component";
 import 'antd/dist/antd.css';
 @observer
 class App extends React.Component {
+  constructor(props: any) {
+    super(props);
+
+  }
   render() {
     return (
       <WrapApp >
