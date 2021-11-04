@@ -16,7 +16,7 @@ export interface IInput {
 interface IReqTransaction {
     transaction_detail: ITransactionnDetail[],
     transaction_order: {
-        url?: string,
+        url: string[],
         name: string,
     }
 }
@@ -30,9 +30,9 @@ interface ITransactionnDetail {
 }
 class Dashboard {
     @observable input: IInput[] = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined, wallet_number: undefined }];
-    @observable url?: string;
+    @observable url: string[] = [];
     @observable name?: string;
-    reqTransaction: IReqTransaction = { transaction_detail: [], transaction_order: { url: "", name: "" } };
+    reqTransaction: IReqTransaction = { transaction_detail: [], transaction_order: { url: [], name: "" } };
     @observable errorInput: boolean = false;
     @observable showCreate: boolean = false;
     @observable isInput: boolean = false;
@@ -68,7 +68,7 @@ class Control {
             this.store.errorInput = true;
             return false;
         }
-        this.store.reqTransaction = { transaction_detail: [], transaction_order: { url: "", name: "" } };
+        this.store.reqTransaction = { transaction_detail: [], transaction_order: { url: [], name: "" } };
         let isNull = false;
         this.store.input.map((item, index) => {
             if (!item.bankNumber || !item.price || !item.file || !item.name || !item.wallet_number) {
@@ -102,7 +102,7 @@ class Control {
                 this.store.showCreate = false;
                 this.store.input = [{ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined }];
                 this.store.name = undefined;
-                this.store.url = undefined;
+                this.store.url = [];
                 setTimeout(() => {
                     controlTransactionOrder.getListTransactionOrder();
                 }, 1000);

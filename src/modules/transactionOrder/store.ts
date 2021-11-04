@@ -4,7 +4,6 @@ import { notifiStore } from "../toastNotification/component";
 interface IResListTransactionOrder {
     id: string;
     createUser: string;
-    attachedFile: string;
     createTime: string;
     state: "PENDING" | "CONFIRMOFFEES" | "CONFIRMOFACOUNTANT" | "REJECT";
     name: string;

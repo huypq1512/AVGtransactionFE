@@ -69,7 +69,9 @@ export default class index extends React.Component {
     }
     async handleUploadFile(e: any) {
         const { status, body } = await control.uploadFile(e.target.files[0]);
-        control.store.url = status === 200 ? body.url : "";
+        if (status === 200) {
+            control.store.url.push(body.url);
+        }
         e.target.value = null;
     }
     render() {
@@ -142,15 +144,16 @@ export default class index extends React.Component {
                     <div style={{ marginTop: "36px", marginBottom: "12px" }}>
                         <Button onClick={() => this.handleActionAdd()} type="primary">Thêm</Button>
                     </div>
-                    <input type="file" id="selectedFile1" style={{ display: "none" }} onChange={this.handleUploadFile} />
+
                     {
-                        control.store.url ? <div>{control.store.url}
-                            <Button onClick={() => document.getElementById("selectedFile1")?.click()} type="primary">Tải lại tờ trình
-                            </Button></div>
-                            :
-                            <Button onClick={() => document.getElementById("selectedFile1")?.click()} type="primary">Tải lên tờ trình
-                            </Button>
+                        control.store.url.map((item, index) => {
+                            return (
+                                <div key={index}>{item}</div>
+                            )
+                        })
                     }
+                    <input type="file" id="selectedFile1" style={{ display: "none" }} onChange={this.handleUploadFile} />
+                    <Button onClick={() => document.getElementById("selectedFile1")?.click()} type="primary">Tải lên tờ trình</Button>
                     <NameTransactionOrder />
                 </Wrap >
             </Modal >

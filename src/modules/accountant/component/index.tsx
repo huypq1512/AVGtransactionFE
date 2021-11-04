@@ -46,7 +46,13 @@ export default class index extends Component<any> {
                         </TableBody>
                     </Table>
                 </TableContainer >
-                <div>File tờ trình <a href={baseURL + control.store.linkFile}>Tải xuống để xem</a></div>
+                {
+                    control.store.linkFile.length > 0 && control.store.linkFile.map((item, index) => {
+                        return (
+                            <div key={index}>File tờ trình {index + 1}  <a href={baseURL + item}>Tải xuống để xem</a></div>
+                        )
+                    })
+                }
                 {
                     control.store.state === "CONFIRMOFFEES" &&
                     <div style={{ marginTop: "12px" }}>

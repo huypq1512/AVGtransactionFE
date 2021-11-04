@@ -12,7 +12,7 @@ interface IListTransaction {
 }
 class BillDepartmentStore {
     @observable listTransaction?: IListTransaction[];
-    @observable linkFile: string = "";
+    @observable linkFile: string[] = [];
     @observable state: "PENDING" | "CONFIRMOFFEES" | "CONFIRMOFACOUNTANT" | "REJECT" = "PENDING";
     otp: string = "";
     @observable isConfirm: boolean = false;
