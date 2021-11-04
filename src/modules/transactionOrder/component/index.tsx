@@ -10,11 +10,13 @@ import { Button } from "antd";
 import { customHistory } from "../../router/router";
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import CreateTransaction from "../../dashboard/component"
-import { baseURL } from "../../../api";
+import { baseURL, baseURLFE } from "../../../api";
+import { control as controlReport } from "../../report/store";
 @observer
 export default class index extends React.Component {
     componentDidMount() {
         control.getListTransactionOrder();
+        control.getUserDetail();
     }
     handlNextPage() {
         control.store.page += 1;
@@ -29,7 +31,11 @@ export default class index extends React.Component {
             <div style={{ backgroundColor: "#FCD34D" }} >
                 <Wrap >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "36px" }}>
-                        <Button style={{ borderRadius: "4px" }} onClick={() => controlCreate.store.showCreate = true}>Tạo đơn mới</Button>
+                        {
+                            control.store.userDetail && control.store.userDetail.departmentCode === "nv" &&
+                            <Button style={{ borderRadius: "4px" }} onClick={() => controlCreate.store.showCreate = true}>Tạo đơn mới</Button>
+                        }
+
                         <button style={{ borderRadius: "4px" }} className="bg-red-500 hover:bg-red-700 text-logout " onClick={() => controlAuth.logout()}>Logout</button>
                     </div>
 
@@ -38,11 +44,9 @@ export default class index extends React.Component {
                             <TableHead className={"header-table"}>
                                 <TableRow>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>STT</TableCell>
-                                    {/* <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>ID</TableCell> */}
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Tên đơn hàng</TableCell>
-                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>File tờ trình</TableCell>
+                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Ngày tạo</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Người tạo</TableCell>
-                                    <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Thời gian tạo</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Trạng thái</TableCell>
                                     <TableCell style={{ color: "#D1D5DB" }} className={"headerTable"}>Action</TableCell>
                                 </TableRow>
@@ -55,30 +59,25 @@ export default class index extends React.Component {
                                                 <TableCell component="th" scope="row">
                                                     {index + 1}
                                                 </TableCell>
-                                                {/* <TableCell component="th" scope="row">
-                                                {item.id}
-                                            </TableCell> */}
                                                 <TableCell component="th" scope="row">
                                                     {item.name}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <a href={baseURL + item.attachedFile}>Tải xuống để xem</a>
-                                                    {/* {item.attachedFile} */}
+                                                    {moment(item.createTime).format("DD/MM/yyyy")}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     {item.createUser}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    {/* {
-                                                    item.createTime
-                                                } */}
-                                                    {moment(item.createTime).format("DD/MM/yyyy")}
-                                                </TableCell>
-                                                <TableCell component="th" scope="row">
                                                     {item.state === "PENDING" ? "Đợi phòng cước duyệt" : item.state === "CONFIRMOFFEES" ? "Đợi phòng kế toán duyệt" : item.state === "CONFIRMOFACOUNTANT" ? "Đã xong" : item.state === "REJECT" ? "Từ chối" : "Đợi duyệt"}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    <Button onClick={() => window.open("http://localhost:3002/report/" + item.id)}>Chi tiết</Button>
+                                                    <Button onClick={() => window.open(baseURLFE + "report/" + item.id)}>Chi tiết</Button>
+                                                    <Button onClick={() => { controlReport.store.id = item.id; controlReport.exportExcel() }}>Xuất excel</Button>
+                                                    {
+                                                        item.state != "CONFIRMOFACOUNTANT" && <Button onClick={() => control.reSendConfirm(item.state, item.id)}>Duyệt đơn hàng</Button>
+                                                    }
+
                                                 </TableCell>
                                             </TableRow>
                                         )

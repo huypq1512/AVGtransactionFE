@@ -12,7 +12,7 @@ export default class index extends Component<any> {
     }
     render() {
         return (
-            <div>
+            <div style={{ maxWidth: "1400px", marginRight: "auto", marginLeft: "auto" }}>
                 <div style={{ marginTop: "36px", marginLeft: "24px", marginBottom: "24px" }}>
                     <div style={{ fontWeight: "bold" }}>CÔNG TY CỔ PHẦN NGHE NHÌN TOÀN CẦU</div>
                     <div style={{ fontWeight: "bold" }}>Phòng: <span style={{ fontWeight: "unset" }}>Công nghệ</span></div>
@@ -83,11 +83,6 @@ export default class index extends Component<any> {
                         </div>
                     </div>
                 </div>
-
-                <div style={{ position: "absolute", right: "12px", top: "12px" }}>
-                    <Button style={{ backgroundColor: "#00CC00", color: "#ffffff" }} onClick={() => control.exportExcel()}>Export excel</Button>
-                </div>
-
             </div>
         )
 

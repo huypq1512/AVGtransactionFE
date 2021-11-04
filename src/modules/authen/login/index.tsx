@@ -6,9 +6,6 @@ export default class index extends React.Component {
         super(props);
         document.title = "Login";
     }
-    componentDidMount() {
-        localStorage.getItem("token") && window.location.replace("/transactionorder");
-    }
     render() {
         return (
             <div className="min-h-screen bg-gray-100 flex flex-col justify-center sm:py-12">

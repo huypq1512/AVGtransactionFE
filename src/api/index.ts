@@ -6,6 +6,7 @@ export interface IApiResponse<T> {
     status: number
     body: T
 }
+export const baseURLFE: string = "http://localhost:3002/"
 export const baseURL: string = process.env.REACT_APP_API_BASE_URL || "";
 const TOKEN_NAME: string = "x-access-token";
 function getRequest(url: string, isToken: boolean = true): Promise<IApiResponse<any>> {
