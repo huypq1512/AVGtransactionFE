@@ -16,6 +16,7 @@ import { control as controlReport } from "../../report/store";
 export default class index extends React.Component {
     componentDidMount() {
         control.getListTransactionOrder();
+        control.getUserDetail();
     }
     handlNextPage() {
         control.store.page += 1;
@@ -30,7 +31,11 @@ export default class index extends React.Component {
             <div style={{ backgroundColor: "#FCD34D" }} >
                 <Wrap >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "36px" }}>
-                        <Button style={{ borderRadius: "4px" }} onClick={() => controlCreate.store.showCreate = true}>Tạo đơn mới</Button>
+                        {
+                            control.store.userDetail && control.store.userDetail.departmentCode === "nv" &&
+                            <Button style={{ borderRadius: "4px" }} onClick={() => controlCreate.store.showCreate = true}>Tạo đơn mới</Button>
+                        }
+
                         <button style={{ borderRadius: "4px" }} className="bg-red-500 hover:bg-red-700 text-logout " onClick={() => controlAuth.logout()}>Logout</button>
                     </div>
 
@@ -70,7 +75,7 @@ export default class index extends React.Component {
                                                     <Button onClick={() => window.open(baseURLFE + "report/" + item.id)}>Chi tiết</Button>
                                                     <Button onClick={() => { controlReport.store.id = item.id; controlReport.exportExcel() }}>Xuất excel</Button>
                                                     {
-                                                        item.state != "CONFIRMOFACOUNTANT" && <Button onClick={() => ""}>Duyệt đơn hàng</Button>
+                                                        item.state != "CONFIRMOFACOUNTANT" && <Button onClick={() => control.reSendConfirm(item.state, item.id)}>Duyệt đơn hàng</Button>
                                                     }
 
                                                 </TableCell>

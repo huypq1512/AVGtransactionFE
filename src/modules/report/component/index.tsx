@@ -83,11 +83,6 @@ export default class index extends Component<any> {
                         </div>
                     </div>
                 </div>
-
-                <div style={{ position: "absolute", right: "12px", top: "12px" }}>
-                    <Button style={{ backgroundColor: "#00CC00", color: "#ffffff" }} onClick={() => control.exportExcel()}>Export excel</Button>
-                </div>
-
             </div>
         )
 
