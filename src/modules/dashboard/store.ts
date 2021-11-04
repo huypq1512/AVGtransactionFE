@@ -55,7 +55,7 @@ class Control {
                 isNull = true;
             }
         });
-        if (isNull || !this.store.url) {
+        if (isNull) {
             notifiStore.content = "Vui lòng nhập hết thông tin!";
             notifiStore.type = "Warning";
         }
