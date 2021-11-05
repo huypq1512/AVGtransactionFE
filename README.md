@@ -1,2 +1,3 @@
 #pm2 run build
-pm2 serve build 3001 --spa
+project sử dung mobx version 4.xx để quản lý state.
+
