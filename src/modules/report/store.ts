@@ -25,7 +25,7 @@ interface IExportExcel {
     "Ngày thực hiện": string
 }
 class Store {
-    id: string = "349ab5ca-f4d8-405f-a429-e3de618ad549";
+    id: string = "2224286c-e37f-4e9d-b0b5-d3c5e44683d7";
     @observable listReport?: IResReport[];
 }
 class Control {
