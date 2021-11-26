@@ -30,10 +30,19 @@ export default class index extends React.Component {
         return (
             <div style={{ backgroundColor: "#FCD34D" }} >
                 <Wrap >
+
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "left", paddingTop: "36px" }}>
+                        {
+                            control.store.userDetail && control.store.userDetail.departmentCode === "nv" &&
+                            // <Button style={{ borderRadius: "4px" }} onClick={() => controlCreate.store.showCreate = true}>Tạo đơn mới</Button>
+                            <Button style={{ borderRadius: "4px" }} onClick={() => controlCreate.store.showCreate = true}>Xuất báo cáo</Button>
+                        }
+                    </div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "36px" }}>
                         {
                             control.store.userDetail && control.store.userDetail.departmentCode === "nv" &&
                             <Button style={{ borderRadius: "4px" }} onClick={() => controlCreate.store.showCreate = true}>Tạo đơn mới</Button>
+                            // <Button style={{ borderRadius: "4px" }} onClick={() => controlCreate.store.showCreate = true}>Xuất báo cáo</Button>
                         }
 
                         <button style={{ borderRadius: "4px" }} className="bg-red-500 hover:bg-red-700 text-logout " onClick={() => controlAuth.logout()}>Logout</button>
