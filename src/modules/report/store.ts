@@ -11,8 +11,12 @@ interface IResReport {
     nameAgency: string
     transAmount: string
     transNumber: string
-    typeTrans: string,
-    codeWallet: string,
+    typeTrans: string
+    codeWallet: string
+}
+interface IResOrderInfo {
+    createdBy: string
+    orderName: string
 }
 interface IExportExcel {
     "Tên đại lý": string,
@@ -27,12 +31,20 @@ interface IExportExcel {
 class Store {
     id: string = "2224286c-e37f-4e9d-b0b5-d3c5e44683d7";
     @observable listReport?: IResReport[];
+    @observable oderInfo?: IResOrderInfo[];
 }
 class Control {
     store = new Store();
     async getListReport() {
         const { status, body } = await getRequest("report?id=" + this.store.id);
         this.store.listReport = status === 200 ? body : undefined;
+        // window.open("https://www.w3schools.com");
+
+    }
+    async getOrderdetail() {
+        const { status, body } = await getRequest("orderdetail?id=" + this.store.id);
+        this.store.oderInfo = status === 200 ? body : undefined;
+        console.log("orderdetail?id=" + this.store.id);
         // window.open("https://www.w3schools.com");
 
     }
