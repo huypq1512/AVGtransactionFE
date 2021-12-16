@@ -72,11 +72,11 @@ export default class index extends React.Component {
                                                     {item.state === "PENDING" ? "Đợi phòng cước duyệt" : item.state === "CONFIRMOFFEES" ? "Đợi phòng kế toán duyệt" : item.state === "CONFIRMOFACOUNTANT" ? "Đã xong" : item.state === "REJECT" ? "Từ chối" : "Đợi duyệt"}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
-                                                    {/* <Button onClick={() => window.open(baseURLFE + "report/" + item.id)}>Chi tiết</Button> */}
+                                                    <Button onClick={() => window.open(baseURLFE + "report/" + item.id)}>Chi tiết</Button>
                                                     {/* Sửa chức năng chi tiết sau */}
                                                     <Button onClick={() => { controlReport.store.id = item.id; controlReport.exportExcel() }}>Xuất excel</Button>
                                                     {
-                                                        item.state != "CONFIRMOFACOUNTANT" && <Button onClick={() => control.reSendConfirm(item.state, item.id)}>Duyệt đơn hàng</Button>
+                                                        item.state !== "CONFIRMOFACOUNTANT" && <Button onClick={() => control.reSendConfirm(item.state, item.id)}>Duyệt đơn hàng</Button>
                                                     }
 
                                                 </TableCell>
