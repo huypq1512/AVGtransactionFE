@@ -38,6 +38,12 @@ export default class index extends React.Component {
 
                         <button style={{ borderRadius: "4px" }} className="bg-red-500 hover:bg-red-700 text-logout " onClick={() => controlAuth.logout()}>Logout</button>
                     </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "left", paddingTop: "36px" }}>
+                        {
+                            control.store.userDetail && control.store.userDetail.departmentCode === "nv" &&
+                            <Button style={{ borderRadius: "4px" }} onClick={() => controlCreate.store.showCreate = true}>Xuất báo cáo</Button>
+                        }
+                    </div>
 
                     <TableContainer component={Paper}>
                         <Table aria-label="simple table">

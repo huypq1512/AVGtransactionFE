@@ -9,13 +9,16 @@ import BillDepartment from "../BillDepartment/component";
 import Accountant from "../accountant/component";
 import TransactionOrder from "../transactionOrder/component/index";
 import Report from "../report/component/index"
+import ReportByDate from "../reportByDate/component/index"
 import { createBrowserHistory } from "history";
 export const customHistory = createBrowserHistory();
 export interface IRouterParam {
   history: any,
   match: {
     params: {
-      id: string
+      id: string,
+      fromDate: string,
+      toDate: string,
     }
   }
 }
@@ -24,6 +27,7 @@ export default function App() {
     <Router history={customHistory}>
       <Switch >
         <Route exact path="/report/:id" component={Report} />
+        <Route exact path="/reportByDate/:fromDate/:toDate" component={ReportByDate} />
         <Route exact path="/billdepartment/:id" component={BillDepartment} />
         <Route exact path="/accountant/:id" component={Accountant} />
         <Route exact path="/login" component={Login} />
