@@ -1,6 +1,5 @@
 import { observer } from 'mobx-react';
 import React , { useState } from "react";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import styled from '@emotion/styled';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
@@ -18,9 +17,7 @@ const { Option } = Select;
 @observer
 export default class index extends React.Component {
     state = {
-        isRender: false,
-        // startDate: moment().format("YYYY-MM-DD"),
-        // endDate: moment().format("YYYY-MM-DD")
+        isRender: false
     }
     handleActionAdd() {
         control.store.input.push({ name: undefined, typeBank: "ZiZi", bankNumber: undefined, price: undefined, file: undefined, createUser: undefined });
@@ -39,9 +36,6 @@ export default class index extends React.Component {
             this.setState({ isRender: !this.state.isRender })
         });
         return rows;
-    }
-    handleSearch(daterange: any) {
-        customHistory.push("/reportByDate/2021-11-29/2022-01-01")
     }
     importExcel = (e: any) => {
         try {

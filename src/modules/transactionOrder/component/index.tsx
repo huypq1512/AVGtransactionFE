@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import styled from '@emotion/styled';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@material-ui/core';
 import { control } from "../store";
@@ -12,8 +14,14 @@ import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 import CreateTransaction from "../../dashboard/component"
 import { baseURL, baseURLFE } from "../../../api";
 import { control as controlReport } from "../../report/store";
+// const [_startDate, setStartDate] = useState(new Date())
+// const [_endDate, setEndDate] = useState(new Date())
+
 @observer
 export default class index extends React.Component {
+    constructor(props: any) {
+        super(props);
+    }
     componentDidMount() {
         control.getListTransactionOrder();
         control.getUserDetail();
@@ -25,6 +33,14 @@ export default class index extends React.Component {
     handleBackPage() {
         control.store.page -= 1;
         control.getListTransactionOrder();
+    }
+    handleSearch() {
+        window.open(baseURLFE + `reportByDate/${moment(this.state.startDate).format("YYYY-MM-DD")}/${moment(this.state.endDate).format("YYYY-MM-DD")}`)
+    }
+    state = {
+        startDate: new Date,
+        endDate: new Date,
+        // currentDate: new Date
     }
     render() {
         return (
@@ -38,11 +54,17 @@ export default class index extends React.Component {
 
                         <button style={{ borderRadius: "4px" }} className="bg-red-500 hover:bg-red-700 text-logout " onClick={() => controlAuth.logout()}>Logout</button>
                     </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "left", paddingTop: "36px" }}>
+
+                    <div style={{alignItems: "left", paddingTop: "36px" }}>
+                        <div>Ngày đầu</div>
+                        <DatePicker style={{ alignItems: "center", borderRadius: "4px",paddingTop: "12px" }} selected={(this.state.startDate)} onChange={(e) =>  this.setState({ startDate: e})} ></DatePicker>
+                        <DatePicker style={{ alignItems: "center", borderRadius: "4px" ,paddingTop: "12px" }} selected={(this.state.endDate)} onChange={(e) =>  this.setState({ endDate: e})} ></DatePicker>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "left"/*, paddingTop: "36px" */ }}>
                         {
-                            control.store.userDetail && control.store.userDetail.departmentCode === "nv" &&
-                            <Button style={{ borderRadius: "4px" }} onClick={() => controlCreate.store.showCreate = true}>Xuất báo cáo</Button>
+                            <Button style={{ borderRadius: "4px" }} onClick={() => this.handleSearch()}>Xuất báo cáo</Button>
                         }
+                        <div />
                     </div>
 
                     <TableContainer component={Paper}>
