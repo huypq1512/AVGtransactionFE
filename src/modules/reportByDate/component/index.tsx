@@ -14,11 +14,12 @@ export default class index extends Component<any> {
     }
     render() {
         return (
-            <div style={{ maxWidth: "1500", marginRight: "auto", marginLeft: "auto" }}>
+            <div style={{ maxWidth: "800", marginRight: "auto", marginLeft: "auto" }}>
                 <div style={{ marginTop: "36px", marginLeft: "24px", marginBottom: "24px" }}>
                     <div style={{ fontWeight: "bold" }}>CÔNG TY CỔ PHẦN NGHE NHÌN TOÀN CẦU</div>
                     <div style={{ fontWeight: "bold" }}>Phòng: <span style={{ fontWeight: "unset" }}>Công nghệ</span></div>
                     <div style={{ fontWeight: "bold", fontSize: "24px", display: "flex", alignItems: "center", justifyContent: "center" }}>Phiếu xác nhận nạp tiền</div>
+                    <div style={{ fontWeight: "bold" }}>Báo cáo nạp tiền từ ngày: {this.props.match.params.fromDate} đến ngày {this.props.match.params.toDate}</div>
                 </div>
 
                 <TableContainer component={Paper}>
@@ -35,11 +36,11 @@ export default class index extends Component<any> {
                                 <TableCell>Mã đối tác</TableCell>
                                 <TableCell>Người tạo đơn</TableCell>
                                 <TableCell>Ngày tạo đơn</TableCell>
-                                <TableCell>Trưởng bộ phận yêu cầu</TableCell>
-                                <TableCell>Trưởng phòng kế toán</TableCell>
+                                {/* <TableCell>Trưởng bộ phận yêu cầu</TableCell> */}
+                                {/* <TableCell>Trưởng phòng kế toán</TableCell> */}
                                 <TableCell>Tên đơn hàng</TableCell>
                                 <TableCell>Trạng thái đơn hàng</TableCell>
-                                <TableCell>Ngày lập hóa đơn</TableCell>
+                                {/* <TableCell>Ngày lập hóa đơn</TableCell> */}
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -57,11 +58,11 @@ export default class index extends Component<any> {
                                             <TableCell component="th" scope="row">{item.refCode}</TableCell>
                                             <TableCell component="th" scope="row">{item.createUser}</TableCell>
                                             <TableCell component="th" scope="row">{item.createDate}</TableCell>
-                                            <TableCell component="th" scope="row">{item.saleLeader}</TableCell>
-                                            <TableCell component="th" scope="row">{item.chiefOfFinancial}</TableCell>
+                                            {/* <TableCell component="th" scope="row">{item.saleLeader}</TableCell> */}
+                                            {/* <TableCell component="th" scope="row">{item.chiefOfFinancial}</TableCell> */}
                                             <TableCell component="th" scope="row">{item.orderName}</TableCell>
                                             <TableCell component="th" scope="row">{item.stateOfTrans}</TableCell>
-                                            <TableCell component="th" scope="row">{item.currentDate}</TableCell>
+                                            {/* <TableCell component="th" scope="row">{item.currentDate}</TableCell> */}
                                         </TableRow>
                                     )
                                 })
@@ -69,6 +70,7 @@ export default class index extends Component<any> {
                         </TableBody>
                     </Table>
                 </TableContainer >
+                <div style={{ display: "flex",  justifyContent: "RIGHT" , marginRight: "150px", marginTop: "50px"}}>Hà Nội,{moment().format('DD-MM-YYYY')}</div>
                 <div style={{ display: "flex", justifyContent: "space-between", margin: "48px" }}>
                     <div>
                         <div>
@@ -92,6 +94,22 @@ export default class index extends Component<any> {
                         </div>
                         <div>
                             (Ký ghi rõ họ tên)
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Trưởng bộ phận yêu cầu
+                        </div>
+                        <div>
+                        (Ký ghi rõ họ tên)
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            Trưởng phòng kế toán
+                        </div>
+                        <div>
+                        (Ký ghi rõ họ tên)
                         </div>
                     </div>
                 </div>

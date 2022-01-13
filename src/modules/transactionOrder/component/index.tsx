@@ -44,7 +44,7 @@ export default class index extends React.Component {
     }
     render() {
         return (
-            <div style={{ backgroundColor: "#FCD34D" }} >
+            <div style={{ backgroundColor: "#f5f0f1" }} >
                 <Wrap >
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingTop: "36px" }}>
                         {
@@ -56,13 +56,14 @@ export default class index extends React.Component {
                     </div>
 
                     <div style={{alignItems: "left", paddingTop: "36px" }}>
-                        <div>Ngày đầu</div>
-                        <DatePicker style={{ alignItems: "center", borderRadius: "4px",paddingTop: "12px" }} selected={(this.state.startDate)} onChange={(e) =>  this.setState({ startDate: e})} ></DatePicker>
+                        <div style={{borderRadius: "4px",alignItems: "left", background : "white", width: "70px"}}>Từ ngày</div>
+                        <DatePicker style={{ alignItems: "center", borderRadius: "4px",paddingTop: "12px", width: "70px"}} selected={(this.state.startDate)} onChange={(e) =>  this.setState({ startDate: e})} ></DatePicker>
+                        <div style={{borderRadius: "4px",alignItems: "left", background : "white", width: "70px"}}>Đến ngày</div>
                         <DatePicker style={{ alignItems: "center", borderRadius: "4px" ,paddingTop: "12px" }} selected={(this.state.endDate)} onChange={(e) =>  this.setState({ endDate: e})} ></DatePicker>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "left"/*, paddingTop: "36px" */ }}>
                         {
-                            <Button style={{ borderRadius: "4px" }} onClick={() => this.handleSearch()}>Xuất báo cáo</Button>
+                            <Button style={{ borderRadius: "4px",background : "#2eb82e" }} onClick={() => this.handleSearch()}>Xuất báo cáo</Button>
                         }
                         <div />
                     </div>
