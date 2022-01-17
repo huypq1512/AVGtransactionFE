@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import { Component } from "react";
 import { control } from "../store";
+// import { control as controllogin} from "../../authen/store";
+// import { control2 as control2 } from "../store2";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@material-ui/core';
 import moment from "moment";
 import { observer } from "mobx-react";
@@ -9,14 +11,17 @@ export default class index extends Component<any> {
     componentDidMount() {
         control.store.id = this.props.match.params.id;
         control.getListReport();
+        control.getOrderdetail();
     }
     render() {
+        console.log(control.store)
         return (
             <div style={{ maxWidth: "1400px", marginRight: "auto", marginLeft: "auto" }}>
                 <div style={{ marginTop: "36px", marginLeft: "24px", marginBottom: "24px" }}>
                     <div style={{ fontWeight: "bold" }}>CÔNG TY CỔ PHẦN NGHE NHÌN TOÀN CẦU</div>
                     <div style={{ fontWeight: "bold" }}>Phòng: <span style={{ fontWeight: "unset" }}>Công nghệ</span></div>
                     <div style={{ fontWeight: "bold", fontSize: "24px", display: "flex", alignItems: "center", justifyContent: "center" }}>Phiếu xác nhận nạp tiền</div>
+                    <div style={{ fontWeight: "bold" }}>Đơn hàng: {control.store.oderInfo &&control.store.oderInfo[0].orderName}</div>
                 </div>
 
                 <TableContainer component={Paper}>
